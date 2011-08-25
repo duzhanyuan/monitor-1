@@ -1,0 +1,104 @@
+entry:
+  mov %vr0d, %vseg0
+  --
+  cpu: protected gpf
+  --
+  FUNC2(gpf_load_seg, $vseg0, %vr0d)
+  ==
+
+entry:
+  pop %vseg0
+  --
+  cpu: protected gpf
+  --
+  pop %tr0d
+  FUNC2(gpf_load_seg, $vseg0, %tr0d)
+  ==
+
+#entry:
+#  movw %gs:MEM32, %vr0w
+#  --
+#  cpu: real gpf
+#  --
+#  leal MEM32, %tr0d
+#  FUNC2(gpf_real_read_memw_to_regw, %tr0d, $vr0d)
+#  ==
+
+entry:
+  jmp *%gs:MEM32
+  --
+  cpu: real protected forced_callout
+  --
+  movl %gs:MEM32, %tr0d
+  FUNC2(apply_fcallout_patch, %tr0d, $0)
+  ==
+
+entry:
+  pushl %esp
+  --
+  cpu: simulate
+  --
+	movl $0, 0x0
+  #movl %esp, %gs:(vcpu + SIM_ESP_OFF)
+  #subl $4, %esp
+  ==
+
+entry:
+  popl %esp
+  --
+  cpu: simulate
+  --
+	movl $0, 0x0
+  #movl %esp, %gs:(vcpu + SIM_ESP_OFF)
+  #subl $4, %esp
+  ==
+
+entry:
+  pushw %sp
+  --
+  cpu: simulate
+  --
+	movl $0, 0x0
+  #movl %esp, %gs:(vcpu + SIM_ESP_OFF)
+  #subl $4, %esp
+  ==
+
+entry:
+  popw %sp
+  --
+  cpu: simulate
+  --
+	movl $0, 0x0
+  #movl %esp, %gs:(vcpu + SIM_ESP_OFF)
+  #subl $4, %esp
+  ==
+
+entry:
+  push %ss
+  --
+  cpu: simulate
+  --
+	movl $0, 0x0
+  #movl %esp, %gs:(vcpu + SIM_ESP_OFF)
+  #subl $4, %esp
+  ==
+
+entry:
+  pop %ss
+  --
+  cpu: simulate
+  --
+	movl $0, 0x0
+  #movl %esp, %gs:(vcpu + SIM_ESP_OFF)
+  #subl $4, %esp
+  ==
+
+entry:
+  pushal
+  --
+  cpu: simulate
+  --
+	movl $0, 0x0
+  #movl %esp, %gs:(vcpu + SIM_ESP_OFF)
+  #subl $4, %esp
+  ==

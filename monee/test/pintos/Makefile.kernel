@@ -1,0 +1,36 @@
+# -*- makefile -*-
+all:
+
+include ../../../config-host.mak
+include Make.vars
+
+pintossrc=$(abspath $(SRCDIR)/test/pintos)
+pintosbuild=$(abspath $(build)/test/pintos)
+#testsrc=$(abspath $(pintossrc)/$(ASSIGNMENT)/$(TEST))
+testsrc=$(abspath $(pintossrc)/$(TEST))
+#testbuild=$(abspath $(pintosbuild)/$(ASSIGNMENT)/$(TEST)-build)
+testbuild=$(abspath $(pintosbuild)/$(TEST)-build)
+
+#DIRS = $(sort $(addprefix $(pintosbuild)/$(ASSIGNMENT)/$(TEST)-build/,$(KERNEL_SUBDIRS) $(TEST_SUBDIRS) lib/user))
+DIRS = $(sort $(addprefix $(pintosbuild)/$(TEST)-build/,$(KERNEL_SUBDIRS) $(TEST_SUBDIRS) lib/user))
+
+all grade %-test: $(DIRS) $(testbuild)/Makefile
+	$(MAKE) -C $(testbuild) $@
+$(DIRS):
+	mkdir -p $@
+$(testbuild)/Makefile: ../Makefile.build $(testbuild)/config.mak \
+	$(testbuild)/Make.vars
+	cp $< $@
+$(testbuild)/Make.vars: Make.vars
+	cp $< $@
+$(testbuild)/config.mak: $(SRCDIR)/configure
+	bash -c "cd $(testbuild) && source_path=$(SRCDIR) $(SRCDIR)/configure"
+
+$(testbuild)/%: $(DIRS) $(testbuild)/Makefile
+	cd $(testbuild) && $(MAKE) $*
+
+clean:
+	@rm -rf $(testbuild)/*
+	@for d in $(TEST_VARIANTS_ALL); do			\
+		rm -rf $(pintosbuild)/$$a/$(NAME)-build.$$d/*;\
+	done

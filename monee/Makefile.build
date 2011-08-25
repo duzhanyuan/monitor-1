@@ -1,0 +1,199 @@
+include config.mak
+
+DEBUGFLAGS=-g
+#DEBUGFLAGS=-DNDEBUG
+
+OBJCOPY=objcopy
+INCLUDES=-I. -I.. -I$(SRCDIR) -I$(SRCDIR)/fpu -I$(ELFIO_ROOT) \
+			   -I$(SRCDIR)/include -I$(SRCDIR)/devices
+CFLAGS+=$(INCLUDES) $(DEBUGFLAGS) -msoft-float -nostdinc -m32 -I$(SRCDIR)/lib
+PEEPGEN_CFLAGS+=$(INCLUDES) $(DEBUGFLAGS) -m32
+CPPFLAGS+=$(INCLUDES) $(DEBUGFLAGS)
+VPATH=$(SRCDIR)
+ASFLAGS=
+CFLAGS+=$(BUILDFLAGS)
+
+MONITOR_SUBDIRS = sys threads mem devices hw peep lib app devices/usb
+BUILD_SUBDIRS=$(addprefix ldr/,$(MONITOR_SUBDIRS)) 									\
+							$(addprefix mon/,$(MONITOR_SUBDIRS)) 									\
+							ldr mon
+CLEAN_SUBDIRS=$(BUILD_SUBDIRS)
+
+
+
+# Turn off -fstack-protector, which we don't support.
+ifeq ($(strip $(shell echo | $(CC) -fno-stack-protector -E - > /dev/null 2>&1; echo $$?)),0)
+CFLAGS += -fno-stack-protector
+endif
+
+# Turn off --build-id in the linker, which confuses the loader.
+ifeq ($(strip $(shell $(LD) --build-id=none -e 0 /dev/null -o /dev/null 2>&1; echo $$?)),0)
+LDFLAGS += -Wl,--build-id=none
+endif
+
+include $(SRCDIR)/Make.conf
+
+COMMON_OBJS:= threads/thread.o threads/synch.o	  														\
+	     sys/interrupt.o lib/list.o mem/palloc.o lib/debug.o lib/shutdown.o			\
+			 lib/string.o threads/switch.o lib/outdev.o sys/gdt.o lib/bitmap.o			\
+			 mem/malloc.o devices/serial.o devices/intq.o sys/exception.o						\
+			 sys/tss.o sys/intr-stubs.o devices/timer.o lib/setjmp.o 								\
+			 devices/input.o lib/stdlib.o lib/arithmetic.o sys/mode.o 							\
+			 devices/disk.o devices/ata.o devices/pci.o lib/stdio.o									\
+			 devices/kbd.o				  																								\
+			 lib/console.o devices/vga.o devices/block.o devices/partition.o				\
+			 devices/usb/uhci.o devices/usb/ehci.o devices/usb/usbdevice.o 					\
+			 devices/usb/usbhub.o	devices/usb/usbmsd.o
+
+LDR_OBJS:= sys/loader_main.o sys/loader_dummy.o sys/load.o $(COMMON_OBJS)
+
+MON_OBJS := devices/mdisk.o lib/hash.o lib/random.o lib/rbtree.o 						 	\
+			 peep/peep.o peep/i386-dis.o peep/insn.o peep/sti_fallthrough.o					\
+			 peep/assignments.o peep/peepcode.o sys/vcpu.o sys/syscall.o 						\
+			 sys/rr_log.o peep/tb.o peep/tb_exit_callbacks.o peep/tb_trace.o 			  \
+			 sys/io.o hw/ide.o hw/bdrv.o hw/uart.o hw/chr_driver.o 									\
+			 mem/pt_mode.o mem/swap.o mem/md5.o mem/mtrace.o	mem/simulate_insn.o		\
+			 mem/paging.o 																													\
+			 peep/callouts.o peep/forced_callouts.o peep/opctable.o 								\
+			 peep/jumptable1.o peep/jumptable2.o peep/cpu_constraints.o	peep/funcs.o\
+			 peep/regset.o	peep/nomatch_pair.o																			\
+			 sys/init.o sys/start.o hw/i8259.o hw/displace_bdrv.o 									\
+			 app/micro_replay.o																											\
+			 $(COMMON_OBJS)
+
+DEPS= -MMD -MF $(@:.o=.d)			#MG?
+
+all: $(BUILD_SUBDIRS) ldr/loader.bin mon/monitor.bin swap.bin
+
+monitor.o: CFLAGS_MODULE = -D__MONITOR__
+
+#sys/interrupt.o: CFLAGS += -O0
+#sys/interrupt.o: WARNINGS += -Wno-uninitialized
+sys/rr_log.o: CFLAGS += $(RR_FLAGS)
+
+%monitor.dsk: $(BUILD_SUBDIRS) bootsector.bin ldr/loader.bin mon/monitor.bin	\
+	swap.bin
+	$(SRCDIR)/misc/check_loader_size.pl ldr/loader.bin
+	cat bootsector.bin ldr/loader.bin mon/monitor.bin swap.bin > $@
+
+ldr/loader.bin: ldr ldr/Makefile
+	make -C ldr loader.bin
+
+mon/monitor.bin: mon mon/Makefile
+	make -C mon monitor.bin
+
+.PHONY: ldr/loader.bin mon/monitor.bin
+
+ldr/Makefile mon/Makefile: Makefile ldr/config.mak mon/config.mak
+	cp $< $@
+
+ldr/config.mak mon/config.mak: config.mak
+	cp $< $@
+
+$(BUILD_SUBDIRS):
+	mkdir -p $@
+
+monitor.bin loader.bin: %.bin: %.o
+	$(OBJCOPY) -O binary -R .note -R .comment -S $< $@.tmp
+	dd if=$@.tmp of=$@ bs=4096 conv=sync
+	rm $@.tmp
+
+swap.bin:
+	dd if=/dev/zero of=$@ bs=4096 conv=sync count=2048
+
+monitor.o: sys/monitor.lds.s $(MON_OBJS)
+	$(LD) -T $< -o $@ $(MON_OBJS)
+sys/monitor.lds.s: CFLAGS += -P
+sys/monitor.lds.s: sys/loader.h lib/mdebug.h
+
+loader.o: sys/loader.lds.s $(LDR_OBJS)
+	$(LD) -T $< -o $@ $(LDR_OBJS)
+sys/loader.lds.s: CFLAGS += -P
+sys/loader.lds.s: sys/loader.h lib/mdebug.h
+
+bootsector.bin: bootsector.o
+	$(LD) -N -e start -Ttext 0x7c00 --oformat binary -melf_i386 -o $@ $<
+
+bootsector.o: sys/bootsector.S ldr/loader.bin mon/monitor.bin
+	$(CC) -c $(SRCDIR)/sys/bootsector.S -o $@ $(ASFLAGS) $(CFLAGS) $(DEFINES) -DLOADER_LOAD_PAGES=`perl -e 'print +(-s "ldr/loader.bin")/ 4096'` -DMONITOR_LOAD_PAGES=`perl -e 'print +(-s "mon/monitor.bin")/ 4096'` -DMONITOR_OFFSET=$(MONITOR_OFFSET)
+
+# bootsector.o needs to be recompiled for every different value
+# of MONITOR_OFFSET. Simply recompile every time.
+.PHONY: bootsector.o
+
+sys/loader.S: sys/loader.h
+
+PEEPGEN_SRCS = lib/string.c peep/assignments.c peep/insn.c \
+							 peep/i386-dis.c peep/opctable.c peep/cpu_constraints.c \
+							 lib/hash.c lib/list.c peep/nomatch_pair.c peep/regset.c
+
+PEEPGEN_OBJS = $(patsubst %.c,%.peepgen.o,$(PEEPGEN_SRCS))
+peepgen: CFLAGS_MODULE= -D__PEEPGEN__
+$(PEEPGEN_OBJS): %.peepgen.o: %.c
+	$(CC) -c $< -o $@ $(CFLAGS) $(CFLAGS_MODULE) $(WARNINGS) $(DEFINES) $(DEPS)
+peepgen: peep/peepgen.c $(PEEPGEN_OBJS)
+	$(CC) $^ -o $@ $(PEEPGEN_CFLAGS) $(DEFINES)
+
+peep/peep.o: peepgen_entries.h peepgen_defs.h peepgen_gencode.h
+peepgen_offsets.h: peepgen sys/vcpu.h
+	./peepgen -f
+%.s: %.S
+	gcc -P -E $(INCLUDES) $< > $@
+peep.S: peep.tab peep.tab.16 peep.tab.excp peep/peeptab_defs.h \
+	peepgen peep/snippets.h
+	cp peep.tab peep.S && ./peepgen -s $(SRCDIR)/peep/snippets.h -a peep.S
+in.S out.S vars: peepgen peep.s peep/peeptab_defs.h
+	sed "s/\s*>>/\n/g" peep.s > peep.es
+	./peepgen peep.es
+in.o out.o: %.o: %.s as
+	./as --32 $< -o $@ 
+peepgen_entries.h: peepgen in.o vars.ordered nomatch_pairs
+	./peepgen -t -o $@
+vars.ordered: peepgen in.o vars
+	./peepgen -v -o $@
+peepgen_defs.h: peepgen in.o vars
+	./peepgen -d -o $@
+peepgen_gencode.h: peepgen out.o vars.ordered
+	./peepgen -g -o $@
+nomatch_pairs: peepgen out.o vars
+	./peepgen -n -o $@
+
+#.INTERMEDIATE: in.o out.o in.S out.S peep.S
+
+peep.ta%: peep/peep.ta%
+	cp $< $@
+as: $(SRCDIR)/../$(NAME)-build/binutils/install/bin/as
+	ln -sf $< $@
+
+sys/init.o: peep/peeptab_defs.h
+peep/peeptab_defs.h: peepgen_offsets.h
+
+$(SRCDIR)/../$(NAME)-build/binutils/install/bin/as: misc/binutils-2.19.patch
+	mkdir -p $(SRCDIR)/../$(NAME)-build/binutils
+	rm -rf $(SRCDIR)/../$(NAME)-build/binutils/$(BINUTILS_DIST)
+	tar xjf $(BINUTILS_DIST_PATH) -C $(SRCDIR)/../$(NAME)-build/binutils
+	cd $(SRCDIR)/../$(NAME)-build/binutils/$(BINUTILS_DIST) && patch -p1 < $<
+	cd $(SRCDIR)/../$(NAME)-build/binutils/$(BINUTILS_DIST) \
+		&& sh myconfigure --prefix=`pwd`/../install
+	make -C $(SRCDIR)/../$(NAME)-build/binutils/$(BINUTILS_DIST)
+	make -C $(SRCDIR)/../$(NAME)-build/binutils/$(BINUTILS_DIST) install
+
+test.bin: test.o
+	$(LD) -N -e start -Ttext 0x7c00 --oformat binary -melf_i386 -o $@ $<
+
+test.dsk: test.bin mon/monitor.bin
+	cat $^ > $@
+
+test.o: misc/test.S
+	$(CC) -c $< -o $@ $(ASFLAGS) $(CFLAGS) $(DEFINES)
+
+clean::
+	@for d in $(CLEAN_SUBDIRS); do 							  \
+	  rm -rf $$d 2> /dev/null;	   	  						\
+	done
+	@rm -rf test
+	@rm -f peepgen_entries.h peepgen_defs.h 			\
+	      peepgen tags *monitor.dsk *.o *.bin Makefile
+
+-include $(MON_OBJS:.o=.d)
+-include $(LDR_OBJS:.o=.d)

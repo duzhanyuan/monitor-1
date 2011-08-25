@@ -1,0 +1,334 @@
+entry:
+  mov %vr0d, %vseg0
+  --
+  cpu: real no_excp
+  --
+  CALLOUT2(callout_real_mov_to_seg, %vr0d, $vseg0)
+  ==
+
+#define MOV_MEM_TO_SEG_ENTRY(memexpr)                                      >>\
+    entry:                                                                 >>\
+      mov %vseg1:memexpr, %vseg0                                           >>\
+      --                                                                   >>\
+      cpu: real no_excp                                                    >>\
+      %tr0d: no_esp                                                        >>\
+      %tr2d: eax                                                           >>\
+      --                                                                   >>\
+      REAL_GET_MEM_ADDR_USE_NO_ESP_TEMP0_EAX_TEMP1(vseg1, memexpr, tr1, tr0, tr2) >>\
+      movw %gs:(%tr1d,%eiz,1), %tr0w                                       >>\
+      RESTORE_TEMPORARY(1)                                                 >>\
+      RESTORE_TEMPORARY(2)                                                 >>\
+      CALLOUT2(callout_real_mov_to_seg_restore_tr0, $tr0d, $vseg0)         >>\
+      ==
+
+MOV_MEM_TO_SEG_ENTRY(MEM16)
+    
+#entry:
+#  mov %vseg1:MEM16, %vseg0
+#  --
+#  cpu: real no_excp
+#  %tr0d: no_esp
+#  %tr2d: eax
+#  --
+#  REAL_GET_MEM_ADDR_USE_NO_ESP_TEMP0_EAX_TEMP1(vseg1, MEM16, tr1, tr0, tr2)
+#  movw %gs:(%tr1d,%eiz,1), %tr0w
+#  RESTORE_TEMPORARY(1)
+#  RESTORE_TEMPORARY(2)
+#  CALLOUT2(callout_real_mov_to_seg_restore_tr0, $tr0d, $vseg0)
+#  ==
+
+#define LXS_ENTRY(opc,segno)                                                >>\
+  entry:                                                                    >>\
+    opc %vseg1:MEM16, %vr0w                                                 >>\
+    --                                                                      >>\
+    cpu: real no_excp                                                       >>\
+    %tr0d: no_esp                                                           >>\
+    %tr2d: eax                                                              >>\
+    --                                                                      >>\
+    REAL_GET_MEM_ADDR_USE_NO_ESP_TEMP0_EAX_TEMP1(vseg1, MEM16, tr1, tr0, tr2);   >>\
+    movw %tr1w, %tr0w;                                                      >>\
+    RESTORE_TEMPORARY(1);                                                   >>\
+    RESTORE_TEMPORARY(2);                                                   >>\
+    CALLOUT3(callout_real_lxs_restore_tr0, $tr0d, $segno, $vr0d)            >>\
+    ==>>
+
+LXS_ENTRY(lds,R_DS)
+LXS_ENTRY(les,R_ES)
+LXS_ENTRY(lfs,R_FS)
+LXS_ENTRY(lgs,R_GS)
+
+entry:
+  pop %vseg0
+  --
+  cpu: real no_excp
+  --
+  CALLOUT1(callout_real_pop_seg, $vseg0)
+  ==
+
+entry:
+  call _(C0)
+  --
+  pushw $fallthrough_addr
+  jmp target_C0
+  EDGE0: set_eip($C0)
+         EXIT_TB
+  ==
+
+entry:
+  call *%vr0w
+  --
+  %tr0d: eax
+  %vr0d: no_eax
+  --
+  pushw $fallthrough_addr
+  JUMP_INDIRECT_USE_EAX_TEMP(%vr0d, 0)
+  ==
+
+entry:
+  call *%ax
+  --
+  %tr0d: eax
+  %tr1d: no_eax
+  --
+  pushw $fallthrough_addr
+  movl %eax, %tr1d
+  JUMP_INDIRECT_AFTER_TR1_RESTORE_USE_EAX_TEMP(%tr1d, tr0)
+  ==
+
+entry:
+  call *%vseg0:MEM16
+  --
+  %tr0d: eax
+  %tr1d: no_eax_esp
+  --
+  REAL_GET_MEM_ADDR_USE_NO_ESP_TEMP0_EAX_TEMP1(vseg0, MEM16, tr2, tr1, tr0)
+  movw %gs:(%tr2d,%eiz,1), %tr1w
+  movzwl %tr1w, %tr1d
+  pushw $fallthrough_addr
+  JUMP_INDIRECT_AFTER_TR2_RESTORE_USE_EAX_TEMP(%tr1d, tr0)
+  ==
+
+entry:
+  ret
+  --
+  %tr0d: eax
+  %tr1d: no_eax
+  --
+  popw %tr1w
+  movzwl %tr1w, %tr1d
+  JUMP_INDIRECT_AFTER_TR1_RESTORE_USE_EAX_TEMP(%tr1d, tr0)
+  ==
+
+entry:
+  push %vseg0
+  --
+  cpu: real no_excp
+  --
+  CALLOUT1(callout_real_push_seg, $vseg0)
+  ==
+
+entry:
+  mov %vseg0, %vr0w
+  --
+  cpu: real no_excp
+  --
+  CALLOUT2(callout_real_mov_seg_to_reg, $vseg0, $vr0d)
+  ==
+
+#define MOV_SEG_TO_MEM_ENTRY(memexpr)                                      >>\
+    entry:                                                                 >>\
+      mov %vseg0, %vseg1:memexpr                                           >>\
+      --                                                                   >>\
+      cpu: real no_excp                                                    >>\
+      --                                                                   >>\
+      leal memexpr, %tr0d                                                  >>\
+      CALLOUT3(callout_real_mov_seg_to_mem_restore_tr0, $vseg0, $vseg1, $tr0d)  >>\
+      ==
+
+MOV_SEG_TO_MEM_ENTRY(MEM16)
+MOV_SEG_TO_MEM_ENTRY(MEM32)
+
+entry:
+  popf
+  --
+  cpu: protected no_excp
+  %tr0d: no_esp
+  %tr1d: no_esp
+  --
+  popw %tr0w
+  movw %tr0w, %tr1w
+  andw $IF_MASK, %tr1w
+  setne %gs:(vcpu + VCPU_IF_OFF)
+  movw %tr0w, %tr1w
+  andl $IOPL_MASK, %tr1d
+  shrw $IOPL_SHIFT, %tr1w
+  movw %tr1w, %gs:(vcpu + VCPU_IOPL_OFF)
+  movw %tr0w, %tr1w
+  orw  $(IOPL_MASK | IF_MASK), %tr1w
+  pushw %tr1w
+  popfw
+  movw %tr0w, %ss:-2(%esp,%eiz,1)
+  ==
+
+entry:
+  pushf
+  --
+  cpu: protected no_excp
+  %tr0d: eax
+  %tr1d: no_eax_esp
+  --
+  save_flags_use_eax_temp(%gs:(vcpu + VCPU_SCRATCH_OFF(0)), tr0)
+  movl %tr0d, %gs:(vcpu + VCPU_SCRATCH_OFF(1))
+  pushfw
+  movw %ss:(%esp,%eiz,1), %tr1w
+  andw $(~IF_MASK & ~IOPL_MASK), %tr1w
+  movw %gs:(vcpu + VCPU_IF_OFF), %tr0w
+  shlw $IF_SHIFT, %tr0w
+  orw %tr0w, %tr1w
+  movw %gs:(vcpu + VCPU_IOPL_OFF), %tr0w
+  shlw $IOPL_SHIFT, %tr0w
+  orw %tr0w, %tr1w
+  movw %tr1w, %ss:(%esp,%eiz,1)
+  movl %gs:(vcpu + VCPU_SCRATCH_OFF(1)), %tr0d
+  restore_flags_use_eax_temp(%gs:(vcpu + VCPU_SCRATCH_OFF(0)), tr0)
+  ==
+
+entry:
+  popf
+  --
+  cpu: real no_excp
+  %tr0d: no_esp
+  %tr1d: no_esp
+  --
+  popw %tr0w
+  movw %tr0w, %tr1w
+  andw $IF_MASK, %tr1w
+  setne %gs:(vcpu + VCPU_IF_OFF)
+  movw %tr0w, %tr1w
+  orw  $(IOPL_MASK | IF_MASK), %tr1w
+  pushw %tr1w
+  popfw
+  movw %tr0w, %ss:-2(%esp,%eiz,1)
+  ==
+
+entry:
+  pushf
+  --
+  cpu: real no_excp
+  %tr0d: eax
+  %tr1d: no_eax_esp
+  --
+  save_flags_use_eax_temp(%gs:(vcpu + VCPU_SCRATCH_OFF(0)), tr0)
+  movl %tr0d, %gs:(vcpu + VCPU_SCRATCH_OFF(1))
+  pushfw
+  movw %ss:(%esp,%eiz,1), %tr1w
+  andw $(~IF_MASK & ~IOPL_MASK), %tr1w
+  movw %gs:(vcpu + VCPU_IF_OFF), %tr0w
+  shlw $IF_SHIFT, %tr0w
+  orw %tr0w, %tr1w
+  movw %tr1w, %ss:(%esp,%eiz,1)
+  movl %gs:(vcpu + VCPU_SCRATCH_OFF(1)), %tr0d
+  restore_flags_use_eax_temp(%gs:(vcpu + VCPU_SCRATCH_OFF(0)), tr0)
+  ==
+
+entry:
+  jmp *%vr0w
+  --
+  %tr0d: eax
+  %tr1d: no_eax
+  --
+  movzwl %vr0w, %tr1d
+  JUMP_INDIRECT_AFTER_TR1_RESTORE_USE_EAX_TEMP(%tr1d, tr0)
+  ==
+
+entry:
+  jmp *%vseg0:MEM16
+  --
+  %tr0d: eax
+  %tr1d: no_eax_esp
+  --
+  REAL_GET_MEM_ADDR_USE_NO_ESP_TEMP0_EAX_TEMP1(vseg0, MEM16, tr2, tr1, tr0)
+  movw %gs:(%tr2d,%eiz,1), %tr1w
+  movzwl %tr1w, %tr1d
+  JUMP_INDIRECT_AFTER_TR2_RESTORE_USE_EAX_TEMP(%tr1d, tr0)
+  ==
+
+entry:
+  lgdt %vseg0:MEM16
+  --
+  %tr0d: no_eax
+  --
+  leal MEM16, %tr0d
+  CALLOUT2(callout_restore_tr0_and_lgdt, $tr0d, $vseg0)
+  ==
+
+entry:
+  lcall $C0, $C1
+  --
+  CALLOUT4(callout_lcall, $C0, $C1, $2, $fallthrough_addr)
+  ==
+
+entry:
+  lret
+  --
+  CALLOUT2(callout_lret, $2, $0)
+  ==
+
+entry:
+  lret $C0
+  --
+  CALLOUT2(callout_lret, $2, $C0)
+  ==
+
+entry:
+#<debug>
+  ljmp *%vseg0:MEM16
+  --
+  leal MEM16, %tr0d
+  CALLOUT3(callout_restore_tr0_and_ljmp_indir, $tr0d, $vseg0, $2)
+  ==
+
+entry:
+#<debug>
+  lcall *%vseg0:MEM16
+  --
+  leal MEM16, %tr0d
+  CALLOUT4(callout_restore_tr0_and_lcall_indir, $tr0d, $vseg0, $2, $fallthrough_addr)
+  ==
+
+entry:
+  jcxz _(C0)
+  --
+  jcxz 1f
+  jmp tc_next_eip
+  1: jmp target_C0
+  EDGE0: set_eip($C0); EXIT_TB
+  EDGE1: set_eip($fallthrough_addr); EXIT_TB
+  ==
+
+entry:
+  loope _(C0)
+  --
+  %tr0d: eax
+  --
+  HANDLE_LOOPX(jnz, cx)
+# no_restore_temporary
+  ==
+
+entry:
+  loopne _(C0)
+  --
+  %tr0d: eax
+  --
+  HANDLE_LOOPX(jz, cx)
+# no_restore_temporary
+  ==
+
+entry:
+  loop _(C0)
+  --
+  %tr0d: eax
+  --
+  HANDLE_LOOP(cx)
+# no_restore_temporary
+  ==

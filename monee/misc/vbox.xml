@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sun VirtualBox Global Configuration -->
+<VirtualBox xmlns="http://www.innotek.de/VirtualBox-settings" version="1.7-linux">
+  <Global>
+    <USBDeviceFilters/>
+    <ExtraData>
+      <ExtraDataItem name="GUI/UpdateDate" value="1 d, 2009-10-10"/>
+      <ExtraDataItem name="GUI/SUNOnlineData" value="triesLeft=2"/>
+      <ExtraDataItem name="GUI/LastWindowPostion" value="2,22,485,1024"/>
+      <ExtraDataItem name="GUI/LastVMSelected" value="2961617e-05ad-4c7e-91ac-a9893d4fbd74"/>
+    </ExtraData>
+    <MachineRegistry>
+      <MachineEntry uuid="{2961617e-05ad-4c7e-91ac-a9893d4fbd74}" src="Machines/pintos/pintos.xml"/>
+    </MachineRegistry>
+    <MediaRegistry>
+      <HardDisks>
+        <HardDisk uuid="{2b25c328-069d-4172-8b7c-d94067cecd06}" location="/home/sbansal/vm/test/pintos.vmdk" format="VMDK" type="Normal"/>
+      </HardDisks>
+      <DVDImages/>
+      <FloppyImages/>
+    </MediaRegistry>
+    <NetserviceRegistry>
+      <DHCPServers>
+        <DHCPServer networkName="HostInterfaceNetworking-vboxnet0" IPAddress="192.168.56.100" networkMask="255.255.255.0" lowerIP="192.168.56.101" upperIP="192.168.56.254" enabled="1"/>
+      </DHCPServers>
+    </NetserviceRegistry>
+    <SystemProperties defaultMachineFolder="Machines" defaultHardDiskFolder="HardDisks" defaultHardDiskFormat="VDI" remoteDisplayAuthLibrary="VRDPAuth" webServiceAuthLibrary="VRDPAuth" LogHistoryCount="3"/>
+  </Global>
+</VirtualBox>

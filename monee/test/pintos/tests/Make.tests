@@ -1,0 +1,160 @@
+# -*- makefile -*-
+
+include $(patsubst %,$(pintossrc)/%/Make.tests,$(TEST_SUBDIRS))
+
+PROGS = $(foreach subdir,$(TEST_SUBDIRS),$($(subdir)_PROGS))
+TESTS = $(foreach subdir,$(TEST_SUBDIRS),$($(subdir)_TESTS))
+EXTRA_GRADES = $(foreach subdir,$(TEST_SUBDIRS),$($(subdir)_EXTRA_GRADES))
+
+#PINTOS_OUTPUTS = $(addsuffix .pintos.output,$(TESTS) $(EXTRA_GRADES))
+#PINTOS_ERRORS = $(addsuffix  .pintos.errors,$(TESTS) $(EXTRA_GRADES))
+#PINTOS_RESULTS = $(addsuffix .pintos.result,$(TESTS) $(EXTRA_GRADES))
+#
+#$(foreach variant,$(VARIANTS),$(eval MPINTOS_OUTPUTS += $(addsuffix .$(variant).mpintos.output,$(TESTS) $(EXTRA_GRADES))))
+#$(foreach variant,$(VARIANTS),$(eval MPINTOS_ERRORS += $(addsuffix .$(variant).mpintos.errors,$(TESTS) $(EXTRA_GRADES))))
+#$(foreach variant,$(VARIANTS),$(eval MPINTOS_RESULTS += $(addsuffix .$(variant).mpintos.result,$(TESTS) $(EXTRA_GRADES))))
+
+$(foreach variant,$(VARIANTS),$(eval RESULTS_$(variant) = \
+			$(addsuffix .$(variant).result,$(TESTS) $(EXTRA_GRADES))))
+$(foreach variant,$(VARIANTS),$(eval $(variant)-test: $(RESULTS_$(variant))))
+
+ifdef PROGS
+include $(pintossrc)/Makefile.userprog
+endif
+
+TIMEOUT = 3600
+
+#clean::
+#rm -f $(PINTOS_OUTPUTS) $(PINTOS_ERRORS) $(PINTOS_RESULTS) \
+#$(MPINTOS_OUTPUTS) $(MPINTOS_ERRORS) $(MPINTOS_RESULTS) $(RESULTS)
+
+grade:: results
+	$(pintossrc)/tests/make-grade $(pintossrc) $< $(GRADING_FILE) | tee $@
+
+%-test:
+	@for d in $(TESTS) $(EXTRA_GRADES); do			\
+		if echo PASS | cmp -s $$d.$(variant).result -; then	\
+			@cat $$d.pintos.stats;						\
+			@cat $$d.$(variant).stats;						\
+		else						\
+			echo "FAIL $$d";			\
+		fi;						\
+	done > $@
+
+$(foreach prog,$(PROGS),$(eval $(prog).dsk $(prog).nobios.dsk: $(prog)))
+$(foreach test,$(TESTS),$(eval $(test).dsk $(test).nobios.dsk: $($(test)_PUTFILES)))
+$(foreach test,$(TESTS),$(eval $(test).dsk $(test).nobios.dsk: TEST = $(test)))
+$(foreach test,$(TESTS),$(eval $(test).dsk: PINTOSOPTS += \
+			--make-disk=$(test).dsk))
+
+$(foreach test,$(TESTS),$(eval $(test).nobios.dsk: PINTOSOPTS += \
+      --make-disk=$(test).nobios.dsk --loader=loader.nobios.bin))
+			
+
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).mpintos.output: $(test).$(variant).mdsk)))
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).mpintos.output: 					\
+				MONITOR_OFFSET = `perl -e 'print +((-s "$(test).nobios.dsk")/512) + 1'`)))
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).mdsk: $(test).nobios.dsk)))
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).result: test=$(test))))
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).result: variant=$(variant))))
+$(foreach test,$(TESTS), $(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).result: $(test).pintos.result)))
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).result: $(test).$(variant).mpintos.result)))
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).mpintos.output: $(test).pintos.output)))
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).mpintos.result: $(test).pintos.result)))
+
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).result: $(test).$(variant).stats)))
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).result: $(test).pintos.stats)))
+$(foreach test,$(TESTS),$(foreach variant,$(VARIANTS),		\
+			$(eval $(test).$(variant).stats: $(test).$(variant).mpintos.result)))
+$(foreach test,$(TESTS), $(eval $(test).pintos.stats: $(test).pintos.result))
+
+# Prevent an environment variable VERBOSE from surprising us.
+VERBOSE =
+
+TESTCMD = perl -I$(SRCDIR)/test/pintos/utils $(SRCDIR)/test/pintos/utils/pintos -v -k
+TESTCMD += --hardware
+TESTCMD += $(PINTOSOPTS)
+ifeq ($(filter userprog, $(KERNEL_SUBDIRS)), userprog)
+TESTCMD += $(FILESYSSOURCE)
+TESTCMD += $(foreach file,$(PUTFILES),-p $(file) -a $(notdir $(file)))
+endif
+ifeq ($(filter vm, $(KERNEL_SUBDIRS)), vm)
+TESTCMD += --swap-size=4
+endif
+TESTCMD += -- -q
+TESTCMD += $(KERNELFLAGS)
+ifeq ($(filter userprog, $(KERNEL_SUBDIRS)), userprog)
+TESTCMD += -f
+endif
+TESTCMD += $(if $($(TEST)_ARGS),run '$(*F) $($(TEST)_ARGS)',run $(*F))
+TESTCMD += < /dev/null
+TESTCMD += 2> /dev/null > /dev/null
+
+$(addsuffix .dsk,$(TESTS)): %.dsk: kernel.bin loader.bin
+	$(TESTCMD)
+
+$(addsuffix .nobios.dsk,$(TESTS)): %.nobios.dsk: kernel.bin loader.nobios.bin
+	$(TESTCMD)
+
+RUNCMD = perl $(SRCDIR)/misc/run_vm.pl $(SRCDIR) $(TEST_SIMULATOR) $< $@ \
+				 $(TIMEOUT)
+
+#RUNCMD = perl $(SRCDIR)/misc/run_vm.pl $(SRCDIR) $(TEST_SIMULATOR) $(patsubst %.default.mdsk,%.dsk,$<) $@ \
+#$(TIMEOUT)
+%.pintos.output: %.dsk
+	@echo "Running $* [pintos]..."
+	$(RUNCMD)
+
+%.mpintos.output: %.mdsk
+	@echo "Running $* [mpintos]..."
+	$(RUNCMD)
+
+%.pintos.result: %.ck %.pintos.output
+	@perl -I$(pintossrc) $< $*.pintos $@ $(SRCDIR) pintos \
+		> $(test).pintos.stats
+
+%.mpintos.result: %.mpintos.output
+	@perl -I$(pintossrc) $(pintossrc)/$(test).ck $*.mpintos $@ $(SRCDIR) \
+		$($(variant)_BUILD_DIR) > $(test).$(variant).stats
+
+%.result: $(BUILD_DIRS) %.mpintos.result
+	if cmp -s $(test).pintos.result $(test).$(variant).mpintos.result; then	\
+		/bin/true;																															\
+	else                                                            					\
+	  echo "FAIL" > $@;                                             					\
+		mkdir -p $(SRCDIR)/../debug;																						\
+		cp $*.mpintos.output $(SRCDIR)/../debug;																\
+		cp $(test).pintos.output $(SRCDIR)/../debug;														\
+		cp $*.mdsk $(SRCDIR)/../debug;																					\
+		cp $(test).dsk $(SRCDIR)/../debug;																			\
+		cp $(test) $(SRCDIR)/../debug 2>/dev/null;															\
+		cp $($(variant)_BUILD_DIR)/mon/monitor.o 																\
+						$(SRCDIR)/../debug/$(notdir $(test)).$(variant).monitor.o;			\
+		cp kernel.o $(SRCDIR)/../debug/$(notdir $(test)).kernel.o;							\
+		cp threads/loader.o $(SRCDIR)/../debug/$(notdir $(test)).loader.o;			\
+		rm -f $(test).pintos.result $(test).$(variant).mpintos.result;					\
+		rm -f $(test).pintos.output $(test).$(variant).mpintos.output;					\
+	  exit 1;																																	\
+	fi
+	rm -f $(test).$(variant).mdsk
+	rm -f $($(variant)_BUILD_DIR)/$(notdir $(test)).monitor.dsk
+#cp $(test).dsk $(test).dsk.bak
+#rm -f $(test).dsk
+	rm -f bochsrc.txt.$(notdir $(test)).$(variant).mpintos.output
+#cp bochsout.txt.$(notdir $(test)).$(variant).mpintos.output bochsout.txt.$(notdir $(test)).$(variant).mpintos.output.bak
+	rm -f bochsout.txt.$(notdir $(test)).$(variant).mpintos.output
+	cat $(test).pintos.stats
+	cat $(test).$(variant).stats
+	echo "PASS" > $@
+	echo "=========  PASS: $*"

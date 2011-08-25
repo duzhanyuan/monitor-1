@@ -1,0 +1,18 @@
+# Disk DescriptorFile
+version=1
+CID=4543534e
+parentCID=ffffffff
+#createType="monolithicFlat"
+createType="twoGbMaxExtentSparse"
+
+# Extent description
+RW 99999 FLAT "mpintos-record-s001.vmdk" 0
+
+# The Disk Data Base 
+#DDB
+
+ddb.virtualHWVersion = "4"
+ddb.geometry.cylinders = "10150"
+ddb.geometry.heads = "16"
+ddb.geometry.sectors = "63"
+ddb.adapterType = "ide"

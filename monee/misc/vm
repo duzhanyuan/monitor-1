@@ -1,0 +1,3 @@
+#!/bin/sh
+rm $1.vmx $1.vmdk $1-s001.vmdk serial.vmw.$1 mpintos-s001.vmdk mpintos.vmdk
+make mpintos.dsk mpintos-s001.vmdk mpintos.vmdk $1 && vmplayer $1.vmx

@@ -1,0 +1,2 @@
+#!/bin/sh
+make && ./pp server serial.vbox.$1.pipe & ./VBoxManage startvm $1

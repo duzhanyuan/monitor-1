@@ -1,0 +1,3 @@
+spawn scp mpintos.dsk monee@monee-laptop:/var/www/boot_image/boot.dsk
+ssh: Could not resolve hostname monee-laptop: Name or service not known
+lost connection

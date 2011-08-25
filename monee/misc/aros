@@ -1,0 +1,3 @@
+#./qemu -fda aros.build/bin/pc-i386/gen/rom/boot/aros.bin -usb -usbdevice disk:monitor.dsk -serial file:serial.qemu.aros
+#./qemu -cdrom aros.build/distfiles/aros-pc-i386.iso -usb -usbdevice disk:pintos.dsk -serial file:serial.qemu.aros
+./qemu -cdrom aros.build/distfiles/aros-pc-i386.iso -usb -usbdevice disk:pintos.dsk -usbdevice mouse -serial file:serial.qemu.aros

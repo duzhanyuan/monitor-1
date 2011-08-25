@@ -1,0 +1,1 @@
+./configure --prefix=`pwd`/../qemu-install-0.9.0 --cc="gcc-3.3.6 -m32" --host-cc="gcc-3.3.6 -m32" --disable-kqemu --cpu=i386 --target-list=x86_64-softmmu

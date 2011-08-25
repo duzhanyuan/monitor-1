@@ -1,0 +1,175 @@
+VIRTUALBOX=~/.VirtualBox
+MONITOR_BUILD=../monee-build
+MONITOR_SRC=../monee
+
+target: mos.dsk
+#target: threads_old.dsk
+#target: mros.dsk
+all: vm pintos mpintos mpintos-record pp
+
+install: bochs-install vbox-install vm-install
+
+pp: pp.c
+	gcc $< -o $@
+
+pp.c: $(MONITOR_SRC)/misc/pp.c
+	ln -s $< $@
+
+abc gentoo diska mpintos pintos pintos-orig mpintos-record: %: %.vmx %.vbox
+	@/bin/true
+
+%.vbox:: %.vmdk
+	-./VBoxManage -q modifyvm $(patsubst %.vbox,%,$@) -hda none
+	-./VBoxManage -q unregistervm $(patsubst %.vbox,%,$@) --delete
+	./VBoxManage -q createvm --register --name $(patsubst %.vbox,%,$@)
+	./VBoxManage -q modifyvm $(patsubst %.vbox,%,$@) --hda `pwd`/$(patsubst %.vbox,%.vmdk,$@)
+	./VBoxManage -q modifyvm $(patsubst %.vbox,%,$@) --uart1 0x3f8 4
+	#./VBoxManage -q modifyvm $(patsubst %.vbox,%,$@) --uartmode1 file `pwd`/serial.vbox.$(patsubst %.vbox,%,$@)
+	./VBoxManage -q modifyvm $(patsubst %.vbox,%,$@) --uartmode1 client `pwd`/serial.vbox.$(patsubst %.vbox,%,$@).pipe
+	touch $@
+
+%.vmx: $(MONITOR_SRC)/misc/%.vmx.orig %.vmdk 
+	cp $< $@
+
+%.vmx: $(MONITOR_SRC)/misc/vmname.vmx.orig %.vmdk
+	sed "s/vmname/$(patsubst %.vmx,%,$@)/" $< > $@
+
+%.vmdk: $(MONITOR_SRC)/misc/%.vmdk.orig %-s001.vmdk
+	sed "s/RW 99999/RW `perl -e 'print +(-s "$(patsubst %.vmdk,%.dsk,$@)")/512'`/" $< > $@
+
+%.vmdk: $(MONITOR_SRC)/misc/vmname.vmdk.orig %-s001.vmdk
+	sed "s/vmname/$(patsubst %.vmdk,%,$@)/" $< > $@
+
+vm: $(MONITOR_SRC)/misc/vm
+	ln -s $< $@
+
+vbox: ../vbox/virtualbox/out/linux.amd64/release/bin/VBoxManage
+	ln -s $< $@
+
+VirtualBox: ../vbox/virtualbox/out/linux.amd64/release/bin/VirtualBox
+	ln -s $< $@
+
+mpintos-record-s001.vmdk:
+	#./qemu-img create -f raw $@ 27M
+	dd if=/dev/zero of=$@ count=54K
+
+%-s001.vmdk::
+	./qemu-img convert -f raw $(patsubst %-s001.vmdk,%.dsk,$@) -O vmdk $@
+
+mos.dsk: os.dsk
+mos.dsk: MONITOR_OFFSET=`perl -e 'print +((-s "os.dsk")/512) + 1'`
+mos.dsk: $(MONITOR_BUILD)/os.monitor.dsk
+	cat os.dsk $< > $@
+	./add_monitor.pl $@ $< $(MONITOR_OFFSET) os.dsk
+
+$(MONITOR_BUILD)/os.monitor.dsk: os.dsk
+	make -C $(MONITOR_BUILD) os.monitor.dsk 															\
+		MONITOR_OFFSET=$(MONITOR_OFFSET) 																		\
+		RR_FLAGS="$(RR_FLAGS)"																							\
+
+#mros.dsk is the micro-replayed os.
+#mros.dsk:: os.dsk kernel.o
+mros.dsk:: os.dsk kernel.o
+mros.dsk:: MONITOR_OFFSET=`perl -e 'print +((-s "os.dsk")/512) + 1'`
+mros.dsk:: RR_FLAGS =  -DPANIC_EIP=`nm kernel.o|grep debug_panic|sed 's/ T .*$$//' | sed 's/^/0x/'`
+mros.dsk::
+	rm -f $(MONITOR_BUILD)/mon/sys/rr_log.o
+mros.dsk:: $(MONITOR_BUILD)/os.monitor.dsk zero16M.dsk
+	cat os.dsk $< zero16M.dsk > $@
+	./add_monitor.pl $@ $< $(MONITOR_OFFSET) os.dsk
+
+zero16M.dsk:
+	dd if=/dev/zero of=$@ count=32K
+
+kernel.o: pintos.old/threads/build/kernel.o
+	ln -s pintos.old/threads/build/kernel.o
+
+.PHONY: $(MONITOR_BUILD)/os.monitor.dsk
+
+# gentoo hda4
+# cylinder start: 58 (inclusive)
+# cylinder end: 70 (inclusive)
+# sectors per cylinder: 945
+mgentoo.dsk:: MONITOR_OFFSET=54811
+mgentoo.dsk::
+	make -C $(MONITOR_SRC)
+	make -C $(MONITOR_BUILD) monitor.dsk MONITOR_OFFSET=$(MONITOR_OFFSET) RR_FLAGS="$(RR_FLAGS)"
+	./add_monitor.pl mgentoo.dsk monitor.dsk $(MONITOR_OFFSET) gentoo.dsk
+
+pintos_new.dsk: echo.dsk
+	rm -f $@
+	ln -s $< $@
+
+fs.dsk:
+	rm -f fs.dsk
+	pintos.old/utils/pintos-mkdisk fs.dsk 2
+	make -C pintos.old/threads
+	pintos.old/utils/pintos --qemu --os-disk=pintos.old/userprog/build/os.dsk -- -f -q
+
+echo_old.dsk: fs.dsk
+	make -C pintos.old/userprog
+	pintos.old/utils/pintos --qemu --os-disk=pintos.old/userprog/build/os.dsk -p pintos.old/examples/echo -a echo -p pintos.old/examples/shell -a shell -p pintos.old/examples/recursor -a recursor -p pintos.old/examples/mcp -a mcp -p pintos.old/examples/matmult -a pintos.old/examples/matmult -- -q
+	rm -f $@
+	pintos.old/utils/pintos --qemu --os-disk=pintos.old/userprog/build/os.dsk --make-disk=$@ -- -q run "shell"
+
+echo.dsk:: PINTOS_OPTIONS=--kernel=pintos.new/userprog/build/kernel.bin --loader=pintos.new/userprog/build/loader.bin --filesys-size=2
+echo.dsk::
+	rm -f $@
+	make -C pintos.new/userprog
+	rm -f pintos.new/userprog/build/os.dsk
+	#pintos.new/utils/pintos --make-disk=$@ --hardware --kernel=pintos.new/userprog/build/kernel.bin --loader=pintos.new/userprog/build/loader.bin -- run 'echo x'
+	pintos.new/utils/pintos --make-disk=$@ --hardware $(PINTOS_OPTIONS) -p pintos.new/examples/echo -a echo -p pintos.new/examples/shell -a shell -- -f run 'shell'
+
+threads_old.dsk::
+	rm -f pintos.old/threads/build/threads/init.o pintos.old/threads/build/threads/pintos_test.o
+	make -C pintos.old/threads CFLAGS="-DPINTOS_TEST $(PINTOS_FLAGS)"
+	rm -f $@
+	ln -s pintos.old/threads/build/os.dsk $@
+
+#os.dsk: threads_old.dsk
+#	cp $< $@
+
+threads.dsk::
+	rm -f $@
+	rm -f pintos.new/threads/build/threads/init.o
+	make -C pintos.new/threads CFLAGS="-DPINTOS_TEST -DPINTOS_NEW $(PINTOS_FLAGS)"
+	#rm -f pintos.new/threads/build/os.dsk
+	pintos.new/utils/pintos --make-disk=$@ --hardware --kernel=pintos.new/threads/build/kernel.bin --loader=pintos.new/threads/build/loader.bin --
+
+bochs-install: ../bochs/bochs/bochs
+	make -C ../bochs/bochs install
+
+vbox-install: VirtualBox vbox
+	sudo make -C ../vbox/virtualbox/out/linux.amd64/release/bin/src load
+	sudo chmod o+rw /dev/vboxdrv
+
+vm-install: /usr/lib/libview.so.2
+	sudo /etc/init.d/vmware restart
+
+/usr/lib/libview.so.2: /usr/lib/libview.so.2.vmware
+	#sudo cp ../vmware-player-distrib/lib/lib/libview.so.2/libview.so.2 /usr/lib/libview.so.2.vmware
+	sudo rm /usr/lib/libview.so.2
+	#sudo mv /usr/lib/libview.so.2 /usr/lib/libview.so.2.orig
+	sudo ln -s /usr/lib/libview.so.2.vmware /usr/lib/libview.so.2
+
+/usr/lib/libview.so.2.vmware: ../vmware-player-distrib/lib/lib/libview.so.2/libview.so.2
+	cp $< $@
+
+gentoo-s001.vmdk:
+	#./qemu-img create -f vmdk $@ 2G
+	./qemu-img create -f raw $@ 2G
+vm-uninstall:
+
+aros:
+	make -C ../aros.build bootiso
+
+clean:
+	rm -rf *.vbox *.vmdk *.vmx *.vmss *.vmem *.vmxf *.vmx.lck *.vmdk.lck \
+		*.vmem.lck gmon.out *.log serial.vmw.* serial.bochs* serial.qemu*  \
+		*.vmsd nvram
+	rm -rf $(VIRTUALBOX)
+
+#.PHONY: pintos.dsk monitor.dsk monitor-record-s001.vmdk
+.PHONY: aros
+
+.PRECIOUS: %-s001.vmdk %.vmx %.vmdk

@@ -1,0 +1,70 @@
+diff -ur --unidirectional-new-file bochs-2.4.5/bochs.h bochs-2.4.5-jitter/bochs.h
+--- bochs-2.4.5/bochs.h	2010-04-13 23:26:50.000000000 +0530
++++ bochs-2.4.5-jitter/bochs.h	2010-06-05 00:14:16.000000000 +0530
+@@ -610,4 +610,6 @@
+ 
+ #endif
+ 
++extern int jitter;
++
+ #endif  /* BX_BOCHS_H */
+diff -ur --unidirectional-new-file bochs-2.4.5/iodev/pit82c54.cc bochs-2.4.5-jitter/iodev/pit82c54.cc
+--- bochs-2.4.5/iodev/pit82c54.cc	2009-06-30 13:39:38.000000000 +0530
++++ bochs-2.4.5-jitter/iodev/pit82c54.cc	2010-06-05 00:17:44.000000000 +0530
+@@ -49,6 +49,7 @@
+ 
+ #include "iodev.h"
+ #include "pit82c54.h"
++#include <stdlib.h>
+ #define LOG_THIS this->
+ 
+ 
+@@ -411,9 +412,15 @@
+         thisctr.triggerGATE=0;
+         break;
+       case 2:
+-        if (thisctr.count_written) {
+-          if (thisctr.triggerGATE || thisctr.first_pass) {
+-            set_count(thisctr, thisctr.inlatch);
++				if (thisctr.count_written) {
++					if (thisctr.triggerGATE || thisctr.first_pass) {
++						unsigned n = thisctr.inlatch;
++						if (jitter && n > 5) {
++							n *= (double) rand() / RAND_MAX;
++							if (n < 5)
++								n = 5;
++						}
++						set_count(thisctr, n);
+             thisctr.next_change_time=(thisctr.count_binary-1) & 0xFFFF;
+             thisctr.null_count=0;
+             if (thisctr.inlatch==1) {
+diff -ur --unidirectional-new-file bochs-2.4.5/main.cc bochs-2.4.5-jitter/main.cc
+--- bochs-2.4.5/main.cc	2010-04-24 15:06:04.000000000 +0530
++++ bochs-2.4.5-jitter/main.cc	2010-06-05 00:18:44.000000000 +0530
+@@ -103,6 +103,7 @@
+ BOCHSAPI BX_MEM_C bx_mem;
+ 
+ char *bochsrc_filename = NULL;
++int jitter = 0;
+ 
+ void bx_print_header()
+ {
+@@ -545,6 +546,13 @@
+     else if (!strcmp("-q", argv[arg])) {
+       SIM->get_param_enum(BXPN_BOCHS_START)->set(BX_QUICK_START);
+     }
++		else if (!strcmp ("-j", argv[arg])) {
++			if (++arg >= argc) BX_PANIC(("-j must be followed by a number"));
++			else {
++				jitter = 1;
++				srand (atoi (argv[arg]));
++			}
++		}
+     else if (!strcmp("-log", argv[arg])) {
+       if (++arg >= argc) BX_PANIC(("-log must be followed by a filename"));
+       else SIM->get_param_string(BXPN_LOG_FILENAME)->set(argv[arg]);
+diff -ur --unidirectional-new-file bochs-2.4.5/myconfigure bochs-2.4.5-jitter/myconfigure
+--- bochs-2.4.5/myconfigure 1970-01-01 05:30:00.000000000 +0530
++++ bochs-2.4.5-jitter/myconfigure  2010-06-05 00:25:14.000000000 +0530
+@@ -0,0 +1 @@
++./configure --prefix=`pwd`/../bochs-2.4.5-jitter-install --enable-cpu-level=6 --enable-disasm --enable-iodebug --enable-x86-64 --enable-pci --enable-acpi --enable-usb --enable-fpu --enable-logging --with-nogui # --enable-gdb-stub --enable-debugger --enable-x86-debugger

@@ -1,0 +1,17 @@
+cd qemu
+./myconfigure
+make && make install
+cd ..
+
+#Put qemu in your path
+ln -s /path/to/csl862-hw2/qemu-install-0.9.0/bin/qemu-system-x86_64 $(HOME)/bin/qemu
+
+cd monee
+./configure
+make
+make test
+
+Common errors while running 'make test':
+* environment variable PASSWORD should be set
+* test script asks for confirmation if the remote host is tested. To resolve
+  this, ssh manually once to both webserver and tapas.

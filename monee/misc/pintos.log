@@ -1,0 +1,654 @@
+Mar 07 04:59:52.743: vmx| Log for VMware Player pid=22504 version=3.0.0 build=build-203739 option=Release
+Mar 07 04:59:52.743: vmx| The process is 64-bit.
+Mar 07 04:59:52.743: vmx| Host codepage=UTF-8 encoding=UTF-8
+Mar 07 04:59:52.743: vmx| Hostname=t500
+Mar 07 04:59:52.743: vmx| IP=127.0.0.1 (lo)
+Mar 07 04:59:52.743: vmx| IP=192.168.1.2 (wlan0)
+Mar 07 04:59:52.743: vmx| IP=172.16.62.1 (vmnet1)
+Mar 07 04:59:52.743: vmx| IP=172.16.79.1 (vmnet8)
+Mar 07 04:59:52.743: vmx| Command line: "/usr/lib/vmware/bin/vmware-vmx" "-ssnapshot.numRollingTiers=0" "-sRemoteDisplay.vnc.enabled=FALSE" "-s" "vmx.stdio.keep=TRUE" "-#" "product=8;name=VMware Player;version=3.0.0;buildnumber=203739;licensename=VMware Player;licenseversion=6.0;" "-@" "pipe=/tmp/vmware-sbansal/vmx116e8aed29ae4590;readyEvent=89" "/home/sbansal/vm/monitor/misc/gentoo.vmx"
+Mar 07 04:59:52.743: vmx| Msg_SetLocale: HostLocale=UTF-8 UserLocale=NULL
+Mar 07 04:59:52.744: vmx| Ready event: 89
+Mar 07 04:59:52.779: vmx| UI Connecting to pipe '/tmp/vmware-sbansal/vmx116e8aed29ae4590' with user '(null)'
+Mar 07 04:59:52.779: vmx| VMXVmdb: Local connection timeout: 60000 ms.
+Mar 07 04:59:52.820: vmx| /home/sbansal/vm/monitor/misc/gentoo.vmx: Setup symlink /var/run/vmware/59175bb24929a6054cfa26aee58978a8 -> /var/run/vmware/sbansal_1000/1267918192743950_22504
+Mar 07 04:59:52.820: vmx| Vix: [22504 mainDispatch.c:369]: VMAutomation: Initializing VMAutomation.
+Mar 07 04:59:52.820: vmx| Vix: [22504 mainDispatch.c:391]: VMAutomation: Detected the VM is not managed
+Mar 07 04:59:52.820: vmx| Vix: [22504 mainDispatch.c:555]: VMAutomationOpenListenerSocket() listening
+Mar 07 04:59:52.820: vmx| Sig_Init already initialized 
+Mar 07 04:59:52.821: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=0, newAppState=1870, success=1
+Mar 07 04:59:52.821: vmx| Transitioned vmx/execState/val to poweredOff
+Mar 07 04:59:52.821: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=1, newAppState=1873, success=1
+Mar 07 04:59:52.821: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=2, newAppState=1877, success=1
+Mar 07 04:59:52.821: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=3, newAppState=1881, success=1
+Mar 07 04:59:52.821: vmx| VMMon_GetkHzEstimate: Calculated 214950 kHz
+Mar 07 04:59:52.821: vmx| TSC kHz estimates: vmmon 214950, cpuinfo 2533000, cpufreq 2534000.  Using 2534000 kHz
+Mar 07 04:59:52.821: vmx| CPU # 0 TSC = 2100882579925
+Mar 07 04:59:52.821: vmx| CPU # 1 TSC = 2100882579821
+Mar 07 04:59:52.821: vmx| TSC delta 104
+Mar 07 04:59:52.821: vmx| CPU # 0 TSC = 2100882674099
+Mar 07 04:59:52.821: vmx| CPU # 1 TSC = 2100882674251
+Mar 07 04:59:52.821: vmx| TSC delta 152
+Mar 07 04:59:52.821: vmx| CPU # 0 TSC = 2100882761442
+Mar 07 04:59:52.821: vmx| CPU # 1 TSC = 2100882761432
+Mar 07 04:59:52.821: vmx| TSC delta 10
+Mar 07 04:59:52.821: vmx| CPU # 0 TSC = 2100882848766
+Mar 07 04:59:52.821: vmx| CPU # 1 TSC = 2100882848747
+Mar 07 04:59:52.821: vmx| TSC delta 19
+Mar 07 04:59:52.821: vmx| TSC min delta 10
+Mar 07 04:59:52.821: vmx| PTSC: RefClockToTSC 1000000Hz -> 2534000000Hz
+Mar 07 04:59:52.821: vmx| PTSC: RefClockToTSC ((x * 2657091584) >> 20)
+Mar 07 04:59:52.821: vmx| PTSC: using TSC
+Mar 07 04:59:52.821: vmx| CPUID[0] vendor: GenuineIntel
+Mar 07 04:59:52.821: vmx| CPUID[0]   name: Intel(R) Core(TM)2 Duo CPU     T9400  @ 2.53GHz
+Mar 07 04:59:52.821: vmx| CPUID[0] level 00000000, 0: 0x0000000a 0x756e6547 0x6c65746e 0x49656e69
+Mar 07 04:59:52.821: vmx| CPUID[0] level 00000001, 0: 0x00010676 0x01020800 0x0008e3fd 0xbfebfbff
+Mar 07 04:59:52.821: vmx| CPUID[0] level 00000002, 0: 0x05b0b101 0x005657f0 0x00000000 0x2cb4304e
+Mar 07 04:59:52.822: vmx| CPUID[0] level 00000003, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[0] level 00000004, 0: 0x04000121 0x01c0003f 0x0000003f 0x00000001
+Mar 07 04:59:52.822: vmx| CPUID[0] level 00000005, 0: 0x00000040 0x00000040 0x00000003 0x03122220
+Mar 07 04:59:52.822: vmx| CPUID[0] level 00000006, 0: 0x00000001 0x00000002 0x00000001 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[0] level 00000007, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[0] level 00000008, 0: 0x00000400 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[0] level 00000009, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[0] level 0000000a, 0: 0x07280202 0x00000000 0x00000000 0x00000503
+Mar 07 04:59:52.822: vmx| CPUID[0] level 80000000, 0: 0x80000008 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[0] level 80000001, 0: 0x00000000 0x00000000 0x00000001 0x20100800
+Mar 07 04:59:52.822: vmx| CPUID[0] level 80000002, 0: 0x65746e49 0x2952286c 0x726f4320 0x4d542865
+Mar 07 04:59:52.822: vmx| CPUID[0] level 80000003, 0: 0x44203229 0x43206f75 0x20205550 0x54202020
+Mar 07 04:59:52.822: vmx| CPUID[0] level 80000004, 0: 0x30303439 0x20402020 0x33352e32 0x007a4847
+Mar 07 04:59:52.822: vmx| CPUID[0] level 80000005, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[0] level 80000006, 0: 0x00000000 0x00000000 0x18008040 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[0] level 80000007, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[0] level 80000008, 0: 0x00003024 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] vendor: GenuineIntel
+Mar 07 04:59:52.822: vmx| CPUID[1]   name: Intel(R) Core(TM)2 Duo CPU     T9400  @ 2.53GHz
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000000, 0: 0x0000000a 0x756e6547 0x6c65746e 0x49656e69
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000001, 0: 0x00010676 0x00020800 0x0008e3fd 0xbfebfbff
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000002, 0: 0x05b0b101 0x005657f0 0x00000000 0x2cb4304e
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000003, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000004, 0: 0x04000121 0x01c0003f 0x0000003f 0x00000001
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000005, 0: 0x00000040 0x00000040 0x00000003 0x03122220
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000006, 0: 0x00000001 0x00000002 0x00000001 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000007, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000008, 0: 0x00000400 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] level 00000009, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] level 0000000a, 0: 0x07280202 0x00000000 0x00000000 0x00000503
+Mar 07 04:59:52.822: vmx| CPUID[1] level 80000000, 0: 0x80000008 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] level 80000001, 0: 0x00000000 0x00000000 0x00000001 0x20100800
+Mar 07 04:59:52.822: vmx| CPUID[1] level 80000002, 0: 0x65746e49 0x2952286c 0x726f4320 0x4d542865
+Mar 07 04:59:52.822: vmx| CPUID[1] level 80000003, 0: 0x44203229 0x43206f75 0x20205550 0x54202020
+Mar 07 04:59:52.822: vmx| CPUID[1] level 80000004, 0: 0x30303439 0x20402020 0x33352e32 0x007a4847
+Mar 07 04:59:52.822: vmx| CPUID[1] level 80000005, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] level 80000006, 0: 0x00000000 0x00000000 0x18008040 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] level 80000007, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID[1] level 80000008, 0: 0x00003024 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID vendor: GenuineIntel
+Mar 07 04:59:52.822: vmx| hostCPUID   name: Intel(R) Core(TM)2 Duo CPU     T9400  @ 2.53GHz
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000000, 0: 0x0000000a 0x756e6547 0x6c65746e 0x49656e69
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000001, 0: 0x00010676 0x01020800 0x0008e3fd 0xbfebfbff
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000002, 0: 0x05b0b101 0x005657f0 0x00000000 0x2cb4304e
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000003, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000004, 0: 0x04000121 0x01c0003f 0x0000003f 0x00000001
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000005, 0: 0x00000040 0x00000040 0x00000003 0x03122220
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000006, 0: 0x00000001 0x00000002 0x00000001 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000007, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000008, 0: 0x00000400 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID level 00000009, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID level 0000000a, 0: 0x07280202 0x00000000 0x00000000 0x00000503
+Mar 07 04:59:52.822: vmx| hostCPUID level 80000000, 0: 0x80000008 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID level 80000001, 0: 0x00000000 0x00000000 0x00000001 0x20100800
+Mar 07 04:59:52.822: vmx| hostCPUID level 80000002, 0: 0x65746e49 0x2952286c 0x726f4320 0x4d542865
+Mar 07 04:59:52.822: vmx| hostCPUID level 80000003, 0: 0x44203229 0x43206f75 0x20205550 0x54202020
+Mar 07 04:59:52.822: vmx| hostCPUID level 80000004, 0: 0x30303439 0x20402020 0x33352e32 0x007a4847
+Mar 07 04:59:52.822: vmx| hostCPUID level 80000005, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID level 80000006, 0: 0x00000000 0x00000000 0x18008040 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID level 80000007, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| hostCPUID level 80000008, 0: 0x00003024 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:52.822: vmx| CPUID Maximum Physical Address Bits supported across all CPUs: 36
+Mar 07 04:59:52.822: vmx| CPU[0]: MSR  0x3a =                0x9
+Mar 07 04:59:52.822: vmx| CPU[1]: MSR  0x3a =                0x9
+Mar 07 04:59:52.822: vmx| Common: MSR  0x3a =                0x1
+Mar 07 04:59:52.822: vmx| CPU[0]: MSR 0x480 =   0x5a08000000000d
+Mar 07 04:59:52.822: vmx| CPU[1]: MSR 0x480 =   0x5a08000000000d
+Mar 07 04:59:52.822: vmx| Common: MSR 0x480 =   0x5a08000000000d
+Mar 07 04:59:52.822: vmx| CPU[0]: MSR 0x481 =       0x3f00000016
+Mar 07 04:59:52.822: vmx| CPU[1]: MSR 0x481 =       0x3f00000016
+Mar 07 04:59:52.822: vmx| Common: MSR 0x481 =       0x3f00000016
+Mar 07 04:59:52.822: vmx| CPU[0]: MSR 0x482 = 0xf7f9fffe0401e172
+Mar 07 04:59:52.822: vmx| CPU[1]: MSR 0x482 = 0xf7f9fffe0401e172
+Mar 07 04:59:52.822: vmx| Common: MSR 0x482 = 0xf7f9fffe0401e172
+Mar 07 04:59:52.822: vmx| CPU[0]: MSR 0x483 =    0x3ffff00036dff
+Mar 07 04:59:52.822: vmx| CPU[1]: MSR 0x483 =    0x3ffff00036dff
+Mar 07 04:59:52.822: vmx| Common: MSR 0x483 =    0x3ffff00036dff
+Mar 07 04:59:52.822: vmx| CPU[0]: MSR 0x484 =     0x3fff000011ff
+Mar 07 04:59:52.822: vmx| CPU[1]: MSR 0x484 =     0x3fff000011ff
+Mar 07 04:59:52.822: vmx| Common: MSR 0x484 =     0x3fff000011ff
+Mar 07 04:59:52.822: vmx| CPU[0]: MSR 0x485 =            0x403c0
+Mar 07 04:59:52.822: vmx| CPU[1]: MSR 0x485 =            0x403c0
+Mar 07 04:59:52.823: vmx| Common: MSR 0x485 =            0x403c0
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x486 =         0x80000021
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x486 =         0x80000021
+Mar 07 04:59:52.823: vmx| Common: MSR 0x486 =         0x80000021
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x487 =         0xffffffff
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x487 =         0xffffffff
+Mar 07 04:59:52.823: vmx| Common: MSR 0x487 =         0xffffffff
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x488 =             0x2000
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x488 =             0x2000
+Mar 07 04:59:52.823: vmx| Common: MSR 0x488 =             0x2000
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x489 =             0x67ff
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x489 =             0x67ff
+Mar 07 04:59:52.823: vmx| Common: MSR 0x489 =             0x67ff
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x48a =               0x2c
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x48a =               0x2c
+Mar 07 04:59:52.823: vmx| Common: MSR 0x48a =               0x2c
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x48b =       0x4100000000
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x48b =       0x4100000000
+Mar 07 04:59:52.823: vmx| Common: MSR 0x48b =       0x4100000000
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x48c =                  0
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x48c =                  0
+Mar 07 04:59:52.823: vmx| Common: MSR 0x48c =                  0
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x48d =                  0
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x48d =                  0
+Mar 07 04:59:52.823: vmx| Common: MSR 0x48d =                  0
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x48e =                  0
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x48e =                  0
+Mar 07 04:59:52.823: vmx| Common: MSR 0x48e =                  0
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x48f =                  0
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x48f =                  0
+Mar 07 04:59:52.823: vmx| Common: MSR 0x48f =                  0
+Mar 07 04:59:52.823: vmx| CPU[0]: MSR 0x490 =                  0
+Mar 07 04:59:52.823: vmx| CPU[1]: MSR 0x490 =                  0
+Mar 07 04:59:52.823: vmx| Common: MSR 0x490 =                  0
+Mar 07 04:59:52.825: vmx| Host ACPI: can't find SRAT
+Mar 07 04:59:52.825: vmx| Host: SRAT tables not found in memory
+Mar 07 04:59:52.845: vmx| ConfigCheck: No rules file found. Checks are disabled.
+Mar 07 04:59:52.845: vmx| changing directory to /home/sbansal/vm/monitor/misc/.
+Mar 07 04:59:52.845: vmx| Config file: /home/sbansal/vm/monitor/misc/gentoo.vmx
+Mar 07 04:59:52.845: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=1, newAppState=1873, success=1
+Mar 07 04:59:52.846: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=2, newAppState=1878, success=1
+Mar 07 04:59:52.857: vmx| VMXVmdb_LoadRawConfig: Loading raw config
+Mar 07 04:59:52.904: vmx| VMXVmdbCbVmVmxExecState: Exec state change requested to state poweredOn without reset, soft.
+Mar 07 04:59:52.904: vmx| TOOLS delaying state change request to state 3
+Mar 07 04:59:52.904: vmx| PowerOn
+Mar 07 04:59:52.904: vmx| VMX_PowerOn: VMX build 203739, UI build 203739
+Mar 07 04:59:52.905: vmx| Host ACPI: can't find SRAT
+Mar 07 04:59:52.905: vmx| Host: SRAT tables not found in memory
+Mar 07 04:59:52.909: vmx| VMXVmdb_LoadRawConfig: Loading raw config
+Mar 07 04:59:52.912: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=0, newAppState=1871, success=1
+Mar 07 04:59:52.912: vmx| HOST sysname Linux, nodename t500, release 2.6.27-gentoo-r8, version #12 SMP Sat Sep 5 00:36:07 IST 2009, machine x86_64, SMP, hz=1000
+Mar 07 04:59:52.912: vmx| DICT --- USER PREFERENCES /home/sbansal/.vmware/preferences 
+Mar 07 04:59:52.912: vmx| DICT       pref.grabOnKeyPress = FALSE
+Mar 07 04:59:52.912: vmx| DICT       pref.eula.0.appName = VMware Player
+Mar 07 04:59:52.912: vmx| DICT   pref.eula.0.buildNumber = 203739
+Mar 07 04:59:52.912: vmx| DICT       pref.usbDev.maxDevs = 0
+Mar 07 04:59:52.912: vmx| DICT pref.keyboardAndMouse.maxProfiles = 0
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos0.index = 3
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos0.vmPath = /home/sbansal/vm/test/mpintos.vmx
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos0.geometry = 864x407+0+0
+Mar 07 04:59:52.912: vmx| DICT   webUpdate.lastCheckTime = 1267918053
+Mar 07 04:59:52.912: vmx| DICT       webUpdate.failCount = 0
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos1.index = 2
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos1.vmPath = /home/sbansal/vm/test/pintos.vmx
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos1.geometry = 864x744+0+0
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos2.index = 4
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos2.vmPath = /home/sbansal/vm/test/mpintos-record.vmx
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos2.geometry = 864x507+0+0
+Mar 07 04:59:52.912: vmx| DICT webUpdate.updatesAvailable = TRUE
+Mar 07 04:59:52.912: vmx| DICT  hint.vmui.showAllUSBDevs = FALSE
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos3.index = 1
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos3.vmPath = /home/sbansal/vm/test/diska.vmx
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos3.geometry = 864x744+0+0
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos4.index = 0
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos4.vmPath = /home/sbansal/vm/test/gentoo.vmx
+Mar 07 04:59:52.912: vmx| DICT pref.vmplayer.vmPos4.geometry = 864x744+0+0
+Mar 07 04:59:52.912: vmx| DICT --- USER DEFAULTS /home/sbansal/.vmware/config 
+Mar 07 04:59:52.912: vmx| DICT --- HOST DEFAULTS /etc/vmware/config 
+Mar 07 04:59:52.912: vmx| DICT           vmware.fullpath = /usr/bin/vmware
+Mar 07 04:59:52.912: vmx| DICT                vix.libdir = /usr/lib/vmware-vix
+Mar 07 04:59:52.912: vmx| DICT                NETWORKING = yes
+Mar 07 04:59:52.912: vmx| DICT            VMBLOCK_CONFED = yes
+Mar 07 04:59:52.912: vmx| DICT           gksu.rootMethod = sudo
+Mar 07 04:59:52.912: vmx| DICT                    libdir = /usr/lib/vmware
+Mar 07 04:59:52.912: vmx| DICT               VMCI_CONFED = yes
+Mar 07 04:59:52.912: vmx| DICT        vix.config.version = 1
+Mar 07 04:59:52.912: vmx| DICT              VSOCK_CONFED = yes
+Mar 07 04:59:52.912: vmx| DICT             initscriptdir = /etc/init.d
+Mar 07 04:59:52.912: vmx| DICT    player.product.version = 3.0.0
+Mar 07 04:59:52.912: vmx| DICT            authd.fullpath = /usr/sbin/vmware-authd
+Mar 07 04:59:52.912: vmx| DICT                    bindir = /usr/bin
+Mar 07 04:59:52.912: vmx| DICT       product.buildNumber = 203739
+Mar 07 04:59:52.912: vmx| DICT           product.version = 7.0.0
+Mar 07 04:59:52.912: vmx| DICT workstation.product.version = 7.0.0
+Mar 07 04:59:52.912: vmx| DICT              product.name = VMware Workstation
+Mar 07 04:59:52.912: vmx| DICT --- SITE DEFAULTS /usr/lib/vmware/config 
+Mar 07 04:59:52.912: vmx| DICT                  tag.help = introduction.htm
+Mar 07 04:59:52.912: vmx| DICT   tag.configurationEditor = config_editor_newvm.htm
+Mar 07 04:59:52.912: vmx| DICT             tag.ideConfig = devices_virtualdrive.htm
+Mar 07 04:59:52.912: vmx| DICT          tag.floppyConfig = devices_floppy.htm
+Mar 07 04:59:52.912: vmx| DICT           tag.mouseConfig = devices_mouse.htm
+Mar 07 04:59:52.912: vmx| DICT             tag.netConfig = devices_netadapter.htm
+Mar 07 04:59:52.912: vmx| DICT        tag.parallelConfig = devices_parallel.htm
+Mar 07 04:59:52.912: vmx| DICT          tag.serialConfig = devices_serial.htm
+Mar 07 04:59:52.912: vmx| DICT           tag.soundConfig = devices_sound.htm
+Mar 07 04:59:52.912: vmx| DICT             tag.memConfig = configvm_memory.htm
+Mar 07 04:59:52.912: vmx| DICT            tag.miscConfig = configvm.htm
+Mar 07 04:59:52.912: vmx| DICT             tag.usbConfig = devices_usb.htm
+Mar 07 04:59:52.912: vmx| DICT         tag.displayConfig = configvm_display-problems.htm
+Mar 07 04:59:52.912: vmx| DICT                 tag.tools = vmtools.htm
+Mar 07 04:59:52.912: vmx| DICT --- COMMAND LINE
+Mar 07 04:59:52.913: vmx| DICT  snapshot.numRollingTiers = 0
+Mar 07 04:59:52.913: vmx| DICT RemoteDisplay.vnc.enabled = FALSE
+Mar 07 04:59:52.913: vmx| DICT            vmx.stdio.keep = TRUE
+Mar 07 04:59:52.913: vmx| DICT             gui.available = TRUE
+Mar 07 04:59:52.913: vmx| DICT --- CONFIGURATION /home/sbansal/vm/monitor/misc/gentoo.vmx 
+Mar 07 04:59:52.913: vmx| DICT            config.version = 8
+Mar 07 04:59:52.913: vmx| DICT         virtualHW.version = 4
+Mar 07 04:59:52.913: vmx| DICT                   guestOS = other
+Mar 07 04:59:52.913: vmx| DICT               displayName = pintos
+Mar 07 04:59:52.913: vmx| DICT                annotation = pintos virtual machine
+Mar 07 04:59:52.913: vmx| DICT guestinfo.vmware.product.url = 
+Mar 07 04:59:52.913: vmx| DICT guestinfo.vmware.product.class = virtual machine
+Mar 07 04:59:52.913: vmx| DICT                  numvcpus = 1
+Mar 07 04:59:52.913: vmx| DICT                   memsize = 64
+Mar 07 04:59:52.913: vmx| DICT     MemAllowAutoScaleDown = FALSE
+Mar 07 04:59:52.913: vmx| DICT               MemTrimRate = -1
+Mar 07 04:59:52.913: vmx| DICT               uuid.action = create
+Mar 07 04:59:52.913: vmx| DICT       tools.remindInstall = FALSE
+Mar 07 04:59:52.913: vmx| DICT             hints.hideAll = TRUE
+Mar 07 04:59:52.913: vmx| DICT            tools.syncTime = TRUE
+Mar 07 04:59:52.913: vmx| DICT               usb.present = TRUE
+Mar 07 04:59:52.913: vmx| DICT   usb.generic.autoconnect = FALSE
+Mar 07 04:59:52.913: vmx| DICT           serial0.present = TRUE
+Mar 07 04:59:52.913: vmx| DICT          serial0.fileType = file
+Mar 07 04:59:52.913: vmx| DICT          serial0.fileName = serial.vmw.pintos
+Mar 07 04:59:52.913: vmx| DICT                   logging = TRUE
+Mar 07 04:59:52.913: vmx| DICT              log.fileName = pintos.log
+Mar 07 04:59:52.913: vmx| DICT                log.append = TRUE
+Mar 07 04:59:52.913: vmx| DICT               log.keepOld = 3
+Mar 07 04:59:52.913: vmx| DICT isolation.tools.hgfs.disable = FALSE
+Mar 07 04:59:52.913: vmx| DICT isolation.tools.dnd.disable = FALSE
+Mar 07 04:59:52.913: vmx| DICT isolation.tools.copy.enable = TRUE
+Mar 07 04:59:52.913: vmx| DICT isolation.tools.paste.enabled = TRUE
+Mar 07 04:59:52.913: vmx| DICT            ide1:0.present = TRUE
+Mar 07 04:59:52.913: vmx| DICT           ide1:0.fileName = install-x86-minimal-20091103.iso
+Mar 07 04:59:52.913: vmx| DICT         ide1:0.deviceType = cdrom-image
+Mar 07 04:59:52.913: vmx| DICT     ide1:0.startConnected = TRUE
+Mar 07 04:59:52.913: vmx| DICT               ide1:0.mode = persistent
+Mar 07 04:59:52.913: vmx| DICT            ide0:0.present = TRUE
+Mar 07 04:59:52.913: vmx| DICT           ide0:0.fileName = gentoo.vmdk
+Mar 07 04:59:52.913: vmx| DICT     ide0:0.startConnected = TRUE
+Mar 07 04:59:52.913: vmx| DICT       ide0:0.writeThrough = TRUE
+Mar 07 04:59:52.913: vmx| DICT         ethernet0.present = TRUE
+Mar 07 04:59:52.913: vmx| DICT  ethernet0.connectionType = nat
+Mar 07 04:59:52.913: vmx| DICT     ethernet0.addressType = generated
+Mar 07 04:59:52.913: vmx| DICT ethernet0.generatedAddressOffset = 0
+Mar 07 04:59:52.913: vmx| DICT      ethernet0.virtualDev = vlance
+Mar 07 04:59:52.913: vmx| DICT virtualHW.productCompatibility = hosted
+Mar 07 04:59:52.913: vmx| DICT      tools.upgrade.policy = manual
+Mar 07 04:59:52.913: vmx| DICT            fileSearchPath = /home/sbansal/vm/test;.
+Mar 07 04:59:52.913: vmx| DICT        extendedConfigFile = gentoo.vmxf
+Mar 07 04:59:52.913: vmx| DICT --- USER DEFAULTS ~/.vmware/config 
+Mar 07 04:59:52.913: vmx| DICT --- HOST DEFAULTS /etc/vmware/config 
+Mar 07 04:59:52.913: vmx| DICT           vmware.fullpath = /usr/bin/vmware
+Mar 07 04:59:52.913: vmx| DICT                vix.libdir = /usr/lib/vmware-vix
+Mar 07 04:59:52.913: vmx| DICT                NETWORKING = yes
+Mar 07 04:59:52.913: vmx| DICT            VMBLOCK_CONFED = yes
+Mar 07 04:59:52.913: vmx| DICT           gksu.rootMethod = sudo
+Mar 07 04:59:52.913: vmx| DICT                    libdir = /usr/lib/vmware
+Mar 07 04:59:52.913: vmx| DICT               VMCI_CONFED = yes
+Mar 07 04:59:52.913: vmx| DICT        vix.config.version = 1
+Mar 07 04:59:52.913: vmx| DICT              VSOCK_CONFED = yes
+Mar 07 04:59:52.913: vmx| DICT             initscriptdir = /etc/init.d
+Mar 07 04:59:52.913: vmx| DICT    player.product.version = 3.0.0
+Mar 07 04:59:52.913: vmx| DICT            authd.fullpath = /usr/sbin/vmware-authd
+Mar 07 04:59:52.913: vmx| DICT                    bindir = /usr/bin
+Mar 07 04:59:52.913: vmx| DICT       product.buildNumber = 203739
+Mar 07 04:59:52.913: vmx| DICT           product.version = 7.0.0
+Mar 07 04:59:52.913: vmx| DICT workstation.product.version = 7.0.0
+Mar 07 04:59:52.913: vmx| DICT              product.name = VMware Workstation
+Mar 07 04:59:52.913: vmx| DICT --- SITE DEFAULTS /usr/lib/vmware/config 
+Mar 07 04:59:52.913: vmx| DICT                  tag.help = introduction.htm
+Mar 07 04:59:52.913: vmx| DICT   tag.configurationEditor = config_editor_newvm.htm
+Mar 07 04:59:52.913: vmx| DICT             tag.ideConfig = devices_virtualdrive.htm
+Mar 07 04:59:52.913: vmx| DICT          tag.floppyConfig = devices_floppy.htm
+Mar 07 04:59:52.913: vmx| DICT           tag.mouseConfig = devices_mouse.htm
+Mar 07 04:59:52.913: vmx| DICT             tag.netConfig = devices_netadapter.htm
+Mar 07 04:59:52.913: vmx| DICT        tag.parallelConfig = devices_parallel.htm
+Mar 07 04:59:52.913: vmx| DICT          tag.serialConfig = devices_serial.htm
+Mar 07 04:59:52.913: vmx| DICT           tag.soundConfig = devices_sound.htm
+Mar 07 04:59:52.913: vmx| DICT             tag.memConfig = configvm_memory.htm
+Mar 07 04:59:52.913: vmx| DICT            tag.miscConfig = configvm.htm
+Mar 07 04:59:52.913: vmx| DICT             tag.usbConfig = devices_usb.htm
+Mar 07 04:59:52.913: vmx| DICT         tag.displayConfig = configvm_display-problems.htm
+Mar 07 04:59:52.913: vmx| DICT                 tag.tools = vmtools.htm
+Mar 07 04:59:52.913: vmx| DICT --- GLOBAL SETTINGS /usr/lib/vmware/settings 
+Mar 07 04:59:52.914: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=1, newAppState=1873, success=1
+Mar 07 04:59:52.919: vmx| VMXVmdb_LoadRawConfig: Loading raw config
+Mar 07 04:59:52.921: vmx| hostCpuFeatures = 0x406001fc
+Mar 07 04:59:52.921: vmx| hostNumPerfCounters = 2
+Mar 07 04:59:52.921: vmx| CPU0: PMC: Patch Level 0x60c, smmFrz (hw): (1)
+Mar 07 04:59:52.921: vmx| PMC: IA32, Penryn [c:0 f:1 e:0]
+Mar 07 04:59:52.921: vmx| CPU1: PMC: Patch Level 0x60c, smmFrz (hw): (1)
+Mar 07 04:59:52.921: vmx| PMC: IA32, Penryn [c:0 f:1 e:0]
+Mar 07 04:59:52.921: vmx| MONITOR MODE: allowed modes          : BT
+Mar 07 04:59:52.921: vmx| MONITOR MODE: user requested modes   : BT HV HWMMU
+Mar 07 04:59:52.921: vmx| MONITOR MODE: guestOS preferred modes: HWMMU HV BT
+Mar 07 04:59:52.921: vmx| MONITOR MODE: filtered list          : BT
+Mar 07 04:59:52.921: vmx| HV Settings: virtual exec = 'software'; virtual mmu = 'software'
+Mar 07 04:59:52.956: vmx| XINFO X fd is 73
+Mar 07 04:59:52.957: vmx| XINFO depth 24 bpp 32 class 4
+Mar 07 04:59:52.959: vmx| Host display topology 1680x1050.
+Mar 07 04:59:52.959: vmx| SVGA: Max size 2560x1600
+Mar 07 04:59:52.959: vmx| MemSched: memTrimRate was -1, now 30
+Mar 07 04:59:52.960: vmx| WSSCAN: reserved mem (in MB) min=32 max=1920 recommended=1920
+Mar 07 04:59:52.960: vmx| WSSCAN: used rec mem (in MB) 1920
+Mar 07 04:59:52.960: vmx| PShare: enabled 1 adaptive 1 local 1 scanRate [16, 400]
+Mar 07 04:59:52.960: vmx| WSSCAN: 50753 7479 16384 32768
+Mar 07 04:59:52.960: vmx| WSSCAN 1 0 446528 454720 491520 -1 50 0
+Mar 07 04:59:52.960: vmx| Host: Disabling thread priority boosting to work around Linux SMP bug.
+Mar 07 04:59:52.960: vmx| MXSemaphoreInitFromPipe: eventfd usage: Enabled
+Mar 07 04:59:52.960: vmx| LICENSE: Running in restricted mode
+Mar 07 04:59:52.971: vmx| LOG failed to remove stats/stats32-2 failed: No such file or directory
+Mar 07 04:59:52.971: vmx| LOG failed to remove stats/stats64-2 failed: No such file or directory
+Mar 07 04:59:52.971: vmx| LOG failed to remove stats32-2 failed: No such file or directory
+Mar 07 04:59:52.971: vmx| LOG failed to remove stats64-2 failed: No such file or directory
+Mar 07 04:59:52.972: vmx| Host IPI vectors: 0xfc 0xfb
+Mar 07 04:59:52.972: vmx| Monitor_PowerOn: HostedVSMP skew tracking is disabled
+Mar 07 04:59:52.972: vmx| Monitor_PowerOn: HostedVSMP crosscall yielding is disabled
+Mar 07 04:59:52.972: vmx| vmm32-modules: [vmm.vmm32 .data:0x2b000-0x748 .sdata:0x2c000-0x4e4 .statvars:0x2d000-0x3a0 .peer:0x2e000-0x26200 .shared:0x5a000-0x143c0 .bss:0x6f000-0x5de8 .rodata:0x76000-0xb6c0 .text:0x82000-0x5c51d .kstatvars:0x3000-0x0, mmu-nohv.vmm32 .rodata:0x816c0-0x44 .data:0x2b748-0x10 .peer:0x54200-0x5640 .shared:0x6e3c0-0x340 .bss:0x74e00-0x51c .text:0xde520-0xa4e3 .comment:0x40000d5c-0x10e .statvars:0x2000-0x0 .kstatvars:0x2000-0x0 .scb:0x40003cc0-0x180 .shared_meta:0x400042f0-0x330 .peer_meta:0x40000f90-0x1e0 .patchtext:0x40000500-0xb0, pv-none.vmm32 .shared:0x6e700-0x180 .bss:0x75320-0x84 .text:0xe8a04-0xe2 .comment:0x40000e6a-0x48 .shared_meta:0x40004620-0x90, vprobe-none.vmm32 .text:0xe8ae8-0x19 .comment:0x40000eb2-0x12, hv-none.vmm32 .rodata:0x81704-0x4 .data:0x1000-0x0 .peer:0x1000-0x0 .shared:0x1000-0x0 .bss:0x1000-0x0 .text:0xe8b04-0x11 .comment:0x40000ec4-0x12 .statvars:0x1000-0x0 .kstatvars:0x1000-0x0, gphys-sw.vmm32 .peer:0x59840-0x40 .shared:0x6e880-0x80 .bss:0x2000-0x0 .text:0xe8b20-0x7d1 .comment:0x40000ed6-0x12 .scb:0x40003e40-0x60 .shared_meta:0x400046b0-0x240 .peer_meta:0x40001170-0x30, vassert-none.vmm32 .text:0xe92f4-0x39 .comment:0x40000ee8-0x12, vmsafe-none.vmm32 .text:0xe9330-0x1b .comment:0x40000efa-0x12, <MonSrcFile> .rodata:0x81708-0x3ce]
+Mar 07 04:59:52.974: vmx| KHZEstimate 2534000
+Mar 07 04:59:52.974: vmx| MHZEstimate 2534
+Mar 07 04:59:52.974: vmx| NumVCPUs 1
+Mar 07 04:59:52.974: vmx| Guest OS (20504) not supported for replay debugging.
+Mar 07 04:59:52.975: vmx| PShare: checkRate 16
+Mar 07 04:59:52.975: vmx| UUID: SMBIOS UUID is reported as '5b 3a 0c 01 4a 24 11 cb-b5 0a b0 93 f8 11 cc 6f'.
+Mar 07 04:59:52.975: vmx| UUID: location-UUID is 56 4d aa 09 47 b5 d9 6c-19 8c 55 51 49 ee 4e 01
+Mar 07 04:59:52.975: vmx| UUID: location-UUID is 56 4d aa 09 47 b5 d9 6c-19 8c 55 51 49 ee 4e 01
+Mar 07 04:59:52.975: vmx| UUID: Writing uuid.bios value: '56 4d aa 09 47 b5 d9 6c-19 8c 55 51 49 ee 4e 01'
+Mar 07 04:59:52.975: vmx| UUID: Writing uuid.location value: '56 4d aa 09 47 b5 d9 6c-19 8c 55 51 49 ee 4e 01'
+Mar 07 04:59:52.982: vmx| AIOGNRC: numThreads=4 ide=1, scsi=0, passthru=1
+Mar 07 04:59:52.982: vmx| WORKER: Creating new group with numThreads=4 (4)
+Mar 07 04:59:52.982: vmx| Couldn't init aioLinux: failed to dlopen libaio: libaio.so.1: cannot open shared object file: No such file or directory
+Mar 07 04:59:52.984: vmx| Replay State = 0
+Mar 07 04:59:52.984: vmx| minDEThreshold: 76
+Mar 07 04:59:52.987: vmx| MMC: Initialized PLS=1 PLR=0 PFS=0 TS=1 BS=1 WZ=0 BufM=0 SOR=1 BlkP=32 W=50 PF=64
+Mar 07 04:59:52.987: vmx| MM: Opened paging file, 'Swap0'.
+Mar 07 04:59:52.987: vmx| MStat: Creating Stat vm.uptime
+Mar 07 04:59:52.987: vmx| MStat: Creating Stat vm.suspendTime
+Mar 07 04:59:52.987: vmx| MStat: Creating Stat vm.powerOnTimeStamp
+Mar 07 04:59:52.987: vmx| VMXAIOMGR: Using: simple=Generic unbuf=Generic
+Mar 07 04:59:52.993: vmx| VMXVmdb_LoadRawConfig: Loading raw config
+Mar 07 04:59:53.004: vmx| DISK: OPEN ide0:0 '/home/sbansal/vm/test/gentoo.vmdk' persistent R[]
+Mar 07 04:59:53.020: vmx| DISKLIB-DSCPTR: Opened [0]: "gentoo.vmdk" (0x3a)
+Mar 07 04:59:53.020: vmx| DISKLIB-LINK  : Opened '/home/sbansal/vm/test/gentoo.vmdk' (0x3a): monolithicSparse, 16777216 sectors / 8 GB.
+Mar 07 04:59:53.020: vmx| DISKLIB-LIB   : Opened "/home/sbansal/vm/test/gentoo.vmdk" (flags 0x3a).
+Mar 07 04:59:53.020: vmx| DiskGetGeometry: Reading of disk partition table
+Mar 07 04:59:53.020: vmx| Setting thread 36 stack size to 1048576.
+Mar 07 04:59:53.020: vmx| DISK: OPEN '/home/sbansal/vm/test/gentoo.vmdk' Geo (16644/16/63) BIOS Geo (0/0/0)
+Mar 07 04:59:53.023: vmx| TimeTracker host to guest rate conversion 2101392430485 @ 2534000000Hz -> 2101392430485 @ 2534000000Hz
+Mar 07 04:59:53.023: vmx| TimeTracker host to guest rate conversion ((x * 2147483648) >> 31) + 0
+Mar 07 04:59:53.023: vmx| USB: Initializing 'Generic' backend
+Mar 07 04:59:53.024: vmx| USB: Initializing 'Virtual Hub' backend
+Mar 07 04:59:53.024: vmx| USB: Initializing 'Virtual Mouse' backend
+Mar 07 04:59:53.024: vmx| USB: Initializing 'Virtual Keyboard' backend
+Mar 07 04:59:53.024: vmx| USB: Initializing 'Virtual Mass Storage' backend
+Mar 07 04:59:53.024: vmx| USB: Initializing 'Virtual CCID' backend
+Mar 07 04:59:53.024: vmx| USB-CCID:  CCID init: could not dlopen /usr/lib64/vmware/bin/libdir/lib/libpcsclite.so.1.0.0/libpcsclite.so.1.0.0. (/usr/lib64/vmware/bin/libdir/lib/libpcsclite.so.1.0.0/libpcsclite.so.1.0.0: cannot open shared object file: No such file or directory)
+Mar 07 04:59:53.024: vmx| CCID init: dlopened /usr/lib64/vmware/bin/../lib/libpcsclite.so.1.0.0/libpcsclite.so.1.0.0.
+Mar 07 04:59:53.024: vmx| USB-CCID: Could not establish resource manager context for card ops: SCARD_E_NO_SERVICE(0x8010001d).
+Mar 07 04:59:53.025: vmx| USB: Unable to initialize 'Virtual CCID' backend
+Mar 07 04:59:53.027: vmx| USBGL: Skipping disk backing for file (/home/sbansal/vm/monitor/misc/gentoo.vmx).
+Mar 07 04:59:53.027: vmx| USBGL: Skipping disk backing for file (/home/sbansal/vm/test/gentoo.vmdk).
+Mar 07 04:59:53.027: vmx| USBGL: Skipping disk backing for file (/home/sbansal/vm/monitor/misc/gentoo.vmsd).
+Mar 07 04:59:53.028: vmx| USBGL: Skipping disk backing for file (/home/sbansal/vm/monitor/misc/nvram).
+Mar 07 04:59:53.028: vmx| XINFO X fd is 73
+Mar 07 04:59:53.028: vmx| XINFO depth 24 bpp 32 class 4
+Mar 07 04:59:53.031: vmx| DisplayTopologyInit: using the XRandR backend.
+Mar 07 04:59:53.032: vmx| Using broken OpenGL driver power on workaround.
+Mar 07 04:59:53.033: vmx| WORKER: Creating new group with numThreads=1 (5)
+Mar 07 04:59:53.033: vmx| MKS: Base polling period is 1000000us
+Mar 07 04:59:53.033: vmx| KHBKL: Unable to parse keystring at: ''
+Mar 07 04:59:53.033: vmx| MKS REMOTE Loading VNC Configuration from VM config file
+Mar 07 04:59:53.035: vmx| VLANCE: send cluster threshold is 80, size = 2 recalcInterval is 2 ticks
+Mar 07 04:59:53.035: vmx| VMXNET: send cluster threshold is 80, size = 2 recalcInterval is 2 ticks, dontClusterSize is 128
+Mar 07 04:59:53.035: vmx| NetPkt: checksum cycles/kB: C=315 asm1=740 asm2=370
+Mar 07 04:59:53.035: vmx| NetPkt: copy and sum cycles/kB: C=506 asm1=747 asm2=345
+Mar 07 04:59:53.035: vmx| Chipset version: 0
+Mar 07 04:59:53.036: vmx| DISKUTIL: ide0:0 : capacity=16777216
+Mar 07 04:59:53.036: vmx| DISKUTIL: ide0:0 : capacity=16777216
+Mar 07 04:59:53.036: vmx| DISKUTIL: ide0:0 : geometry=16644/16/63
+Mar 07 04:59:53.036: vmx| DISKUTIL: ide1:0 : capacity=0
+Mar 07 04:59:53.036: vmx| DISKUTIL: ide1:0 : geometry=0/0/0
+Mar 07 04:59:53.036: vmx| SVGA: Device capabilities 0x000bc3e2
+Mar 07 04:59:53.037: vmx| Host display topology 1680x1050.
+Mar 07 04:59:53.037: vmx| SVGA: Max size 2560x1600
+Mar 07 04:59:53.039: vmx| Host display topology 1680x1050 with 1 displays.
+Mar 07 04:59:53.039: vmx| SVGA: Max size 2560x1600
+Mar 07 04:59:53.039: vmx| SVGA: FIFO capabilities 0x0000007f
+Mar 07 04:59:53.039: vmx| USB: Initializing 'UHCI' host controller
+Mar 07 04:59:53.039: vmx| Ethernet0 MAC Address: 00:0c:29:ee:4e:01
+Mar 07 04:59:53.041: vmx| MStat: Creating Stat vm.heartbeat
+Mar 07 04:59:53.041: vmx| TOOLS Generated SessionId 3578589358331446784
+Mar 07 04:59:53.041: vmx| VMXVmdbGuest_GetToolsVersion did nothing; tools version has not yet been initialized
+Mar 07 04:59:53.041: vmx| DISKUTIL: ide0:0 : toolsVersion = 0
+Mar 07 04:59:53.041: vmx| DISKUTIL: Offline toolsVersion = 0
+Mar 07 04:59:53.041: vmx| VMXVmdbGuest_GetToolsVersion did nothing; tools version has not yet been initialized
+Mar 07 04:59:53.041: vmx| TOOLS setting legacy tools version to '0', manifest status is 5
+Mar 07 04:59:53.041: vmx| VMXVmdb_SetToolsVersionState: status value set to 'notAvailable'
+Mar 07 04:59:53.041: vmx| VMXVmdb_SetToolsVersionState: status value set to 'notAvailable'
+Mar 07 04:59:53.041: vmx| TOOLS INSTALL initializing state to IDLE on power on.
+Mar 07 04:59:53.060: vmx| PTSC to VMI Wallclock (nsec) 2101485271392 @ 2534000000Hz -> 1267918193000000000 @ 1000000000Hz
+Mar 07 04:59:53.060: vmx| PTSC to VMI Wallclock (nsec) ((x * 3389871583) >> 33) + 1267917363684581206
+Mar 07 04:59:53.060: vmx| PTSC to ParaTime RealCycles 0 @ 2534000000Hz -> 0 @ 2534000000Hz
+Mar 07 04:59:53.060: vmx| PTSC to ParaTime RealCycles ((x * 1) >> 0) + 0
+Mar 07 04:59:53.060: vmx| ParaTime RealCycles to PTSC 0 @ 2534000000Hz -> 0 @ 2534000000Hz
+Mar 07 04:59:53.060: vmx| ParaTime RealCycles to PTSC ((x * 1) >> 0) + 0
+Mar 07 04:59:53.062: vmx| guestCpuFeatures = 0x406001f8
+Mar 07 04:59:53.062: vmx| guestCPUID vendor: GenuineIntel
+Mar 07 04:59:53.062: vmx| guestCPUID   name: Intel(R) Core(TM)2 Duo CPU     T9400  @ 2.53GHz
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000000, 0: 0x0000000a 0x756e6547 0x6c65746e 0x49656e69
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000001, 0: 0x00010676 0x00010800 0x00080201 0x0febfbff
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000002, 0: 0x05b0b101 0x005657f0 0x00000000 0x2cb4304e
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000003, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000004, 0: 0x04000121 0x01c0003f 0x0000003f 0x00000001
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000005, 0: 0x00000040 0x00000040 0x00000003 0x03122220
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000006, 0: 0x00000001 0x00000002 0x00000001 0x00000000
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000007, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000008, 0: 0x00000400 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:53.062: vmx| guestCPUID level 00000009, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:53.062: vmx| guestCPUID level 0000000a, 0: 0x07280202 0x00000000 0x00000000 0x00000503
+Mar 07 04:59:53.062: vmx| guestCPUID level 80000000, 0: 0x80000008 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:53.062: vmx| guestCPUID level 80000001, 0: 0x00000000 0x00000000 0x00000000 0x00100800
+Mar 07 04:59:53.062: vmx| guestCPUID level 80000002, 0: 0x65746e49 0x2952286c 0x726f4320 0x4d542865
+Mar 07 04:59:53.062: vmx| guestCPUID level 80000003, 0: 0x44203229 0x43206f75 0x20205550 0x54202020
+Mar 07 04:59:53.062: vmx| guestCPUID level 80000004, 0: 0x30303439 0x20402020 0x33352e32 0x007a4847
+Mar 07 04:59:53.062: vmx| guestCPUID level 80000005, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:53.062: vmx| guestCPUID level 80000006, 0: 0x00000000 0x00000000 0x18008040 0x00000000
+Mar 07 04:59:53.062: vmx| guestCPUID level 80000007, 0: 0x00000000 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:53.062: vmx| guestCPUID level 80000008, 0: 0x00003024 0x00000000 0x00000000 0x00000000
+Mar 07 04:59:53.064: vmx| BusMemSample: initPercent 75 touched 12288
+Mar 07 04:59:53.064: vmx| TOOLS received request in VMX to set option 'enableDnD' -> '1'
+Mar 07 04:59:53.064: vmx| TOOLS received request in VMX to set option 'copypaste' -> '1'
+Mar 07 04:59:53.065: vmx| VMXVmdbLoadUsbDevices: New set of 2 USB devices
+Mar 07 04:59:53.065: vmx| USB: Found device [name:AuthenTec\ Fingerprint\ Sensor vid:08ff pid:2810 path:4/0 speed:full family:vendor]
+Mar 07 04:59:53.065: vmx| USB: Found device [name:Broadcom\ ThinkPad\ Bluetooth\ with\ Enhanced\ Data\ Rate\ II vid:0a5c pid:2145 path:4/1 speed:full family:vendor,other,wireless,bluetooth]
+Mar 07 04:59:53.065: vmx| Vix: [22504 mainDispatch.c:710]: VMAutomation_PowerOn. Powering on.
+Mar 07 04:59:53.065: vmx| VMX_PowerOn: ModuleTable_PowerOn = 1
+Mar 07 04:59:53.065: vmx| Setting thread 1 stack size to 2097152.
+Mar 07 04:59:53.066: mks| Async MKS thread is alive
+Mar 07 04:59:53.066: vmx| Setting thread 4 stack size to 1048576.
+Mar 07 04:59:53.066: vcpu-0| APIC: version = 0x14, max LVT = 5
+Mar 07 04:59:53.066: vcpu-0| APIC: LDR = 0x2000000, DFR = 0xffffffff
+Mar 07 04:59:53.067: vcpu-0| CPU reset: hard (mode 2)
+Mar 07 04:59:53.067: vcpu-0| PIIX4: PM Resuming from suspend type 0x0.
+Mar 07 04:59:53.067: vcpu-0| VNET: MACVNetConnectToNetwork: Ethernet0: notify available
+Mar 07 04:59:53.068: vcpu-0| FLOPPYLIB-LINUX: Cannot validate floppy device /dev/fd0: No such file or directory.
+Mar 07 04:59:53.068: vcpu-0| Msg_Post: Warning
+Mar 07 04:59:53.068: vcpu-0| [msg.floppy.badConnectLong] Could not connect to floppy "/dev/fd0". Please correct your configuration and then re-attempt to connect the virtual floppy drive.
+Mar 07 04:59:53.068: vcpu-0| [msg.device.startdisconnected] Virtual device floppy0 will start disconnected.
+Mar 07 04:59:53.068: vcpu-0| ----------------------------------------
+Mar 07 04:59:53.172: vcpu-0| CDROM: Connecting ide1:0 to 'install-x86-minimal-20091103.iso'. img=1 raw=0 remote=0
+Mar 07 04:59:53.172: vcpu-0| CDROM-IMG: Failed to connect 'install-x86-minimal-20091103.iso'.
+Mar 07 04:59:53.172: vcpu-0| CDROM: Failed to connect CDROM device 'install-x86-minimal-20091103.iso'.
+Mar 07 04:59:53.172: vcpu-0| Msg_Post: Warning
+Mar 07 04:59:53.172: vcpu-0| [msg.cdromImage.noExistance] Cannot connect file "install-x86-minimal-20091103.iso" as a CD-ROM image: file does not exist
+Mar 07 04:59:53.172: vcpu-0| [msg.device.startdisconnected] Virtual device ide1:0 will start disconnected.
+Mar 07 04:59:53.172: vcpu-0| ----------------------------------------
+Mar 07 04:59:53.173: vcpu-0| Vix: [22511 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=0, newAppState=1872, success=1
+Mar 07 04:59:53.175: vcpu-0| Vix: [22511 mainDispatch.c:3406]: VMAutomationReportPowerStateChange: Reporting power state change (opcode=0, err=0).
+Mar 07 04:59:53.175: vcpu-0| Vix: [22511 mainDispatch.c:3406]: VMAutomationReportPowerStateChange: Reporting power state change (opcode=2, err=0).
+Mar 07 04:59:53.175: vcpu-0| Transitioned vmx/execState/val to poweredOn
+Mar 07 04:59:53.175: vmx| DnDRegisterRpc: DnD rpc already set to 1
+Mar 07 04:59:53.175: vmx| CopyPasteRegisterRpc: already set to 1
+Mar 07 04:59:53.202: vmx| VMXVmdb_LoadRawConfig: Loading raw config
+Mar 07 04:59:53.233: mks| Connecting to window system.
+Mar 07 04:59:53.233: mks| XINFO X fd is 73
+Mar 07 04:59:53.234: mks| XINFO depth 24 bpp 32 class 4
+Mar 07 04:59:53.236: mks| DisplayTopologyInit: using the XRandR backend.
+Mar 07 04:59:53.237: mks| MKS: Base polling period is 10000us
+Mar 07 04:59:53.237: mks| XKeymap_PowerOn: use xkb keycode mapping.
+Mar 07 04:59:53.237: mks| rasterops MMXEXT accelerations enabled
+Mar 07 04:59:53.237: mks| DisplayTopologyGetDisplayCapabilities: only one CRTC could be found.
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 0: 1680x1050
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 1: 1440x900
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 2: 1400x1050
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 3: 1280x1024
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 4: 1280x960
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 5: 1280x768
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 6: 1280x720
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 7: 1152x864
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 8: 1024x768
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 9: 800x600
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 10: 720x480
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 11: 640x480
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 12: 640x400
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 13: 512x384
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 14: 400x300
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 15: 320x240
+Mar 07 04:59:53.237: mks| XInfoFetchModes: host display mode 16: 320x200
+Mar 07 04:59:53.237: mks| XI major version 1, minor version 4
+Mar 07 04:59:53.328: mks| HostOps hideCursor before defineCursor!
+Mar 07 04:59:53.334: vcpu-0| sz=2969568
+Mar 07 04:59:53.337: vcpu-0| vmm32 initialized: Releasebuild-203739. cflags: 0x00000000.00001000.00002000.00040003
+Mar 07 04:59:53.338: vcpu-0| MonitorInitNumaUnmapVMM32
+Mar 07 04:59:53.347: mks| KHBKL: Unable to parse keystring at: ''
+Mar 07 04:59:53.350: mks| KHBKL: Unable to parse keystring at: ' '
+Mar 07 04:59:53.487: vcpu-0| SVGA: Registering MemSpace at 0xf0000000(0x0) and 0xe8000000(0x0)
+Mar 07 04:59:53.489: vcpu-0| SVGA: Unregistering MemSpace at 0xf0000000(0xf0000000) and 0xe8000000(0xe8000000)
+Mar 07 04:59:53.494: vcpu-0| SVGA: Registering MemSpace at 0xf0000000(0xf0000000) and 0xe8000000(0xe8000000)
+Mar 07 04:59:53.498: vcpu-0| SVGA: Unregistering MemSpace at 0xf0000000(0xf0000000) and 0xe8000000(0xe8000000)
+Mar 07 04:59:53.500: vcpu-0| SVGA: Registering IOSpace at 0x1410
+Mar 07 04:59:53.500: vcpu-0| SVGA: Registering MemSpace at 0xf0000000(0xf0000000) and 0xe8000000(0xe8000000)
+Mar 07 04:59:53.716: vcpu-0| VIDE: Curr CHS info cyls: 17475 heads: 15 sects: 63 lba_cap: 16777216
+Mar 07 04:59:54.034: vcpu-0| BIOS-UUID is 56 4d aa 09 47 b5 d9 6c-19 8c 55 51 49 ee 4e 01
+Mar 07 04:59:54.293: mks| HostOps hideCursor before defineCursor!
+Mar 07 04:59:54.632: vcpu-0| VLANCE: Ignoring LANCE_EXTINT OUT of 0x0
+Mar 07 04:59:57.823: vmx| PTSC: using reference clock [TSC: 2100883060825->2106819950659, RC: 3893655239->3898656598]
+Mar 07 04:59:58.789: mks| SVGA: display status changed, using optimizations for local consoles.
+Mar 07 05:00:12.781: vmx| VMXVmdbCbVmVmxExecState: Exec state change requested to state suspended without reset, soft.
+Mar 07 05:00:12.781: vmx| CPT current = 0, requesting 1
+Mar 07 05:00:12.781: vcpu-0| Done Sync monModules(1).
+Mar 07 05:00:12.781: vcpu-0| CPT: monitor ACKing mode 1
+Mar 07 05:00:12.854: vmx| CPT current = 1, requesting 2
+Mar 07 05:00:12.854: vcpu-0| CPT: monitor ACKing mode 2
+Mar 07 05:00:12.854: vmx| CPT current = 2, requesting 3
+Mar 07 05:00:12.855: vcpu-0| Done Cpt monModules(3).
+Mar 07 05:00:12.855: vcpu-0| CPT: monitor ACKing mode 3
+Mar 07 05:00:12.856: vmx| Progress -1% (msg.checkpoint.saveStatus)
+Mar 07 05:00:12.856: vmx| Checkpointed in VMware Player, 3.0.0, build-203739, Linux Host
+Mar 07 05:00:12.866: vmx| BusMemSample: checkpoint 3 initPercent 75 touched 12288
+Mar 07 05:00:12.869: vmx| Progress 1% (none)
+Mar 07 05:00:12.870: vmx| Progress 3% (none)
+Mar 07 05:00:12.872: vmx| Progress 4% (none)
+Mar 07 05:00:12.874: vmx| Progress 6% (none)
+Mar 07 05:00:12.877: vmx| Progress 7% (none)
+Mar 07 05:00:12.879: vmx| Progress 9% (none)
+Mar 07 05:00:12.882: vmx| Progress 10% (none)
+Mar 07 05:00:12.884: vmx| Progress 12% (none)
+Mar 07 05:00:12.888: vmx| Progress 14% (none)
+Mar 07 05:00:12.890: vmx| Progress 15% (none)
+Mar 07 05:00:12.893: vmx| Progress 17% (none)
+Mar 07 05:00:12.895: vmx| Progress 18% (none)
+Mar 07 05:00:12.900: vmx| Progress 20% (none)
+Mar 07 05:00:12.904: vmx| Progress 21% (none)
+Mar 07 05:00:12.908: vmx| Progress 23% (none)
+Mar 07 05:00:12.912: vmx| Progress 25% (none)
+Mar 07 05:00:12.916: vmx| Progress 26% (none)
+Mar 07 05:00:12.920: vmx| Progress 28% (none)
+Mar 07 05:00:12.924: vmx| Progress 29% (none)
+Mar 07 05:00:12.928: vmx| Progress 31% (none)
+Mar 07 05:00:12.931: vmx| Progress 32% (none)
+Mar 07 05:00:12.935: vmx| Progress 34% (none)
+Mar 07 05:00:12.939: vmx| Progress 35% (none)
+Mar 07 05:00:12.943: vmx| Progress 37% (none)
+Mar 07 05:00:12.947: vmx| Progress 39% (none)
+Mar 07 05:00:12.951: vmx| Progress 40% (none)
+Mar 07 05:00:12.955: vmx| Progress 42% (none)
+Mar 07 05:00:12.959: vmx| Progress 43% (none)
+Mar 07 05:00:12.963: vmx| Progress 45% (none)
+Mar 07 05:00:12.966: vmx| Progress 46% (none)
+Mar 07 05:00:12.971: vmx| Progress 48% (none)
+Mar 07 05:00:12.975: vmx| Progress 50% (none)
+Mar 07 05:00:12.979: vmx| Progress 51% (none)
+Mar 07 05:00:12.981: vmx| Progress 53% (none)
+Mar 07 05:00:12.985: vmx| Progress 54% (none)
+Mar 07 05:00:12.989: vmx| Progress 56% (none)
+Mar 07 05:00:12.993: vmx| Progress 57% (none)
+Mar 07 05:00:12.997: vmx| Progress 59% (none)
+Mar 07 05:00:13.000: vmx| Progress 60% (none)
+Mar 07 05:00:13.004: vmx| Progress 62% (none)
+Mar 07 05:00:13.008: vmx| Progress 64% (none)
+Mar 07 05:00:13.012: vmx| Progress 65% (none)
+Mar 07 05:00:13.016: vmx| Progress 67% (none)
+Mar 07 05:00:13.020: vmx| Progress 68% (none)
+Mar 07 05:00:13.024: vmx| Progress 70% (none)
+Mar 07 05:00:13.028: vmx| Progress 71% (none)
+Mar 07 05:00:13.031: vmx| Progress 73% (none)
+Mar 07 05:00:13.035: vmx| Progress 75% (none)
+Mar 07 05:00:13.039: vmx| Progress 76% (none)
+Mar 07 05:00:13.043: vmx| Progress 78% (none)
+Mar 07 05:00:13.047: vmx| Progress 79% (none)
+Mar 07 05:00:13.051: vmx| Progress 81% (none)
+Mar 07 05:00:13.055: vmx| Progress 82% (none)
+Mar 07 05:00:13.058: vmx| Progress 84% (none)
+Mar 07 05:00:13.062: vmx| Progress 85% (none)
+Mar 07 05:00:13.066: vmx| Progress 87% (none)
+Mar 07 05:00:13.070: vmx| Progress 89% (none)
+Mar 07 05:00:13.074: vmx| Progress 90% (none)
+Mar 07 05:00:13.078: vmx| Progress 92% (none)
+Mar 07 05:00:13.082: vmx| Progress 93% (none)
+Mar 07 05:00:13.085: vmx| Progress 95% (none)
+Mar 07 05:00:13.089: vmx| Progress 96% (none)
+Mar 07 05:00:13.093: vmx| Progress 98% (none)
+Mar 07 05:00:13.097: vmx| Progress 100% (none)
+Mar 07 05:00:13.150: vmx| Progress 101% (none)
+Mar 07 05:00:15.918: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=1, newAppState=1875, success=1
+Mar 07 05:00:15.918: vmx| Vix: [22504 mainDispatch.c:3491]: VMAutomation: Ignoring ReportPowerOpFinished because the VMX is shutting down.
+Mar 07 05:00:15.918: vmx| Stopping VCPU threads...
+Mar 07 05:00:16.930: mks| Ending MKSRole pseudocalls, state was 1
+Mar 07 05:00:16.930: mks| Detaching from window system.
+Mar 07 05:00:16.930: mks| MKS: Base polling period is 1000000us
+Mar 07 05:00:16.930: mks| Async MKS thread is exiting
+Mar 07 05:00:16.930: vmx| Vix: [22504 mainDispatch.c:912]: VMAutomation_PowerOff: Powering off.
+Mar 07 05:00:16.931: vmx| TOOLS received request in VMX to set option 'enableDnD' -> '0'
+Mar 07 05:00:16.931: vmx| TOOLS received request in VMX to set option 'copypaste' -> '0'
+Mar 07 05:00:16.931: vmx| TOOLS received request in VMX to set option 'copypaste' -> '0'
+Mar 07 05:00:16.931: vmx| VMXVmdb_SetToolsVersionState: status value set to 'notAvailable'
+Mar 07 05:00:16.932: vmx| HostOps hideCursor before defineCursor!
+Mar 07 05:00:16.934: vmx| MKS local poweroff
+Mar 07 05:00:16.934: vmx| FLOPPYLIB-MAIN : drive 0 has a file name, but no ops.
+Mar 07 05:00:16.939: vmx| WORKER: asyncOps=1 maxActiveOps=1 maxPending=0 maxCompleted=0
+Mar 07 05:00:16.943: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=1, newAppState=1875, success=1
+Mar 07 05:00:16.943: vmx| Vix: [22504 mainDispatch.c:3491]: VMAutomation: Ignoring ReportPowerOpFinished because the VMX is shutting down.
+Mar 07 05:00:16.943: vmx| Vix: [22504 mainDispatch.c:3485]: VMAutomation_ReportPowerOpFinished: statevar=0, newAppState=1870, success=1
+Mar 07 05:00:16.943: vmx| Vix: [22504 mainDispatch.c:3491]: VMAutomation: Ignoring ReportPowerOpFinished because the VMX is shutting down.
+Mar 07 05:00:16.944: vmx| Transitioned vmx/execState/val to suspended
+Mar 07 05:00:16.971: vmx| VMXVmdb_LoadRawConfig: Loading raw config
+Mar 07 05:00:16.979: vmx| VMX idle exit
+Mar 07 05:00:16.980: vmx| Vix: [22504 mainDispatch.c:644]: VMAutomation_LateShutdown()
+Mar 07 05:00:16.980: vmx| Vix: [22504 mainDispatch.c:594]: VMAutomationCloseListenerSocket. Closing listener socket.
+Mar 07 05:00:16.980: vmx| Flushing VMX VMDB connections
+Mar 07 05:00:16.985: vmx| VMX exit (0).
+Mar 07 05:00:16.985: vmx| AIOMGR-S : stat o=3 r=18 w=0 i=0 br=167424 bw=0
+Mar 07 05:00:16.985: vmx| FileTrack_Exit: done
