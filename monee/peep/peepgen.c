@@ -1276,6 +1276,7 @@ gen_offsets(void)
   fprintf(fp, "#define VCPU_CR0_OFF VCPU_CR_OFF(0)\n");
   fprintf(fp, "#define VCPU_CR2_OFF VCPU_CR_OFF(2)\n");
   fprintf(fp, "#define VCPU_CR3_OFF VCPU_CR_OFF(3)\n");
+  fprintf(fp, "#define VCPU_CR4_OFF VCPU_CR_OFF(4)\n");
   //fprintf(fp, "#define VCPU_CR4_OFF %d\n", offsetof(vcpu_t, cr[4]));
   fprintf(fp, "#define VCPU_EFLAGS_OFF %d\n", offsetof(vcpu_t, eflags));
   fprintf(fp, "#define VCPU_IF_OFF %d\n", offsetof(vcpu_t, IF));

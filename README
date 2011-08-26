@@ -15,3 +15,6 @@ Common errors while running 'make test':
 * environment variable PASSWORD should be set
 * test script asks for confirmation if the remote host is tested. To resolve
   this, ssh manually once to both webserver and tapas.
+* If some compute.c tests take too long, reduce their size by editing
+  compute.c. You will find comments of the type '//fast' which contain
+  smaller runs of the same benchmarks.

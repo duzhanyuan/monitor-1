@@ -125,6 +125,18 @@ entry:
   ==
 
 entry:
+  mov %cr4, %vr0d
+  --
+  movl %gs:(vcpu+VCPU_CR4_OFF), %vr0d
+  ==
+
+entry:
+  mov %vr0d, %cr4
+  --
+  movl %vr0d, %gs:(vcpu+VCPU_CR4_OFF)
+  ==
+
+entry:
   movl %vr0d, %cr0
   --
   CALLOUT1(callout_mov_to_cr0, %vr0d)
