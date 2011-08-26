@@ -67,6 +67,11 @@ void usb_shutdown(void);
 #define ERR printf
 #define DBE(...)
 #define DBGn(...)
+/*
+#define DBGn(n,x,args...) do {                                                \
+          printf(x, ##args);                                                        \
+} while(0)
+*/
 #define NOT_IMPLEMENTED() ASSERT(0)
 #define ABORT() ASSERT(0)
 

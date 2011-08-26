@@ -15,7 +15,6 @@ ifeq ($(TESTS_QUICKONLY),0)
 else
 tests/threads_TESTS = $(addprefix tests/threads/,bubsort fibo-recursive fibo-iter \
       hanoi1 hanoi2 hanoi3 printf emptyloop)
-#test/threads_TESTS = 
 endif
 #alarm-simultaneous priority-condvar priority-donate-sema mlfqs-load-1 mlf
 #alarm-multiple

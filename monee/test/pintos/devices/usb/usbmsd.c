@@ -328,6 +328,7 @@ usbmsd_new(struct usbdevice *device)
   for (i = 0; i <= mss->max_lun; i++) {
     usbmsd_read_capacity(mss, i, &block_total, NULL);
   }
+  block_total++;
 	snprintf(name, sizeof name, "ud%c", 'a' + dev_no++);
 
 	block = block_register (name, BLOCK_RAW, "USB", block_total, &msd_operations,

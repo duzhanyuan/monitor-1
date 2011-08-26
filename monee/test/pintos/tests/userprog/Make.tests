@@ -18,8 +18,9 @@ ifeq ($(TESTS_QUICKONLY),0)
   rox-child rox-multichild bad-read bad-write bad-read2 bad-write2        \
   bad-jump bad-jump2 bad-jump3)
 else
-  tests/userprog_TESTS = $(addprefix tests/userprog/,							\
-			bad-jump bad-jump2 bad-jump3 multi-recurse)
+#  tests/userprog_TESTS = $(addprefix tests/userprog/,							\
+#			bad-jump bad-jump2 bad-jump3 multi-recurse)
+  tests/userprog_TESTS =
 endif
 
 tests/userprog_PROGS = $(tests/userprog_TESTS) $(addprefix \

@@ -131,8 +131,8 @@ main (void)
 
 #ifdef FILESYS
   /* Initialize file system. */
-  ide_init ();
 	usb_init ();
+  ide_init ();
   locate_block_devices ();
   filesys_init (format_filesys);
 #endif
@@ -178,6 +178,7 @@ paging_init (void)
   size_t page;
   extern char _start, _end_kernel_text;
   uint32_t paddr;
+  uint32_t cr4;
 
   pd = init_page_dir = palloc_get_page (PAL_ASSERT | PAL_ZERO);
   pt = NULL;
@@ -199,11 +200,12 @@ paging_init (void)
     }
 
   /* Map PCI address used by UHCI/EHCI devices */
-  /*
   for (paddr = 0xf5c00000; paddr <= 0xfa000000; paddr += 0x400000) {
     pd[pd_no(paddr)] = paddr | PTE_U | PTE_PS | PTE_G | PTE_P | PTE_W;
   }
-  */
+  /* Enable large pages */
+  asm volatile ("movl %%cr4, %0" : "=r" (cr4));
+  asm volatile ("movl %0, %%cr4" : : "r"(cr4 | 0x10));
 
   /* Store the physical address of the page directory into CR3
      aka PDBR (page directory base register).  This activates our
