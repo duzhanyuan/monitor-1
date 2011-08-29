@@ -6,7 +6,7 @@ set disk_image [lindex $argv 0]
 set host 10.20.3.27
 set USER $env(USER)
 set PASSWORD $env(PASSWORD)
-set WEBSERVER 10.20.254.81
+set WEBSERVER systems.cse.iitd.ernet.in
 
 spawn scp $disk_image $USER@$WEBSERVER:public_html/boot.dsk
 expect "*password*"
