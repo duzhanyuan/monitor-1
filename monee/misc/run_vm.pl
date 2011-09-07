@@ -7,6 +7,7 @@ use Fcntl;
 use File::Temp 'tempfile';
 use File::Copy;
 use File::Basename;
+use Sys::Hostname;
 use Getopt::Long qw(:config bundling);
 use Fcntl qw(SEEK_SET SEEK_CUR);
 
@@ -39,6 +40,16 @@ sub run_tapas
   my $extra_opts = shift;
   system("$SRCDIR/misc/run_tapas.sh $os_dsk | tee $serial_output");
 }
+
+sub run_tapas_q
+{
+  my $bin = shift;
+  my $os_dsk = shift;
+  my $serial_output = shift;
+  my $extra_opts = shift;
+  system("$SRCDIR/misc/run_tapas_q.exp $os_dsk $extra_opts | tee $serial_output");
+}
+
 
 sub run_qemu
 {
@@ -253,7 +264,14 @@ if ($sim eq 'qemu') {
 	run_tapas ("tapas", $tmpfile, $output, int(rand(9999999)));
 	unlink($tmpfile);
   exit 0;
+} elsif ($sim eq "tapas.q") {
+  copy($disk, $tmpfile);
+  my $h=hostname;
+	run_tapas_q ("tapas.q", $tmpfile, $output, "$ENV{LOGNAME}_${h}_$ENV{SESSION_NAME}_" . basename($disk));
+	unlink($tmpfile);
+  exit 0;
 }
+
 
 
 print "Simulator '$sim' not supported.\n";

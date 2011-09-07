@@ -1,0 +1,50 @@
+#!/usr/bin/expect -f
+
+set EXPECT_TIMEOUT -1
+set host 10.20.3.27
+set USER $env(XUSER)
+set PASSWORD $env(XPASS)
+set WEBSERVER systems.cse.iitd.ernet.in
+
+# hack to validate EXEC_TIMEOUT
+set timeout $EXPECT_TIMEOUT
+#stty
+
+proc run { i c } {
+  puts "Begin Exec $c"
+  send -i $i "$c\r"
+  puts "Wait Exec $c"
+  expect -i $i ">hpiLO->"
+  puts "Done Exec $c"
+}
+
+proc login_system { t u h p } {
+   set timeout $t
+   spawn ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $u@$h
+   set tmp $spawn_id
+   expect -i $tmp "*password*"
+   send -i $tmp "$p\r"
+   expect -i $tmp "</>hpiLO->"
+   return $tmp
+}
+
+proc logout_system { i } {
+ send -i $i "exit\r"
+ set timeout 5
+ expect -i $i eof
+}
+
+proc terminate_system {m u h p} {
+  puts "FATAL: $m Error. Terminating"
+  set timeout -1
+  set X2 [login_system -1 $u $h $p ]
+  run $X2 "stop -f /system1"
+  
+  puts "on exit 0"
+  logout_system $X2
+  exit 1
+}
+
+terminate_system "ForcedKill" $USER $host $PASSWORD
+exit 0
+

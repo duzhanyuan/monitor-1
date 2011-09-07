@@ -1,5 +1,8 @@
 # -*- makefile -*-
 
+SESSION_NAME := $(shell date +%Y_%m_%d_%H_%M_%S)
+export SESSION_NAME
+
 include $(patsubst %,$(pintossrc)/%/Make.tests,$(TEST_SUBDIRS))
 
 PROGS = $(foreach subdir,$(TEST_SUBDIRS),$($(subdir)_PROGS))

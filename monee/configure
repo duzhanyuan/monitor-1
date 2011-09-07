@@ -1,7 +1,7 @@
 #!/bin/bash
 
 name=monee
-sim=tapas							# qemu bochs bochsm tapas
+sim=tapas.q   # qemu bochs bochsm tapas tapas.q
 #find source path
 if [ -z "$source_path" ]; then
   source_path=`pwd`

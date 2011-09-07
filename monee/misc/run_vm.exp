@@ -1,0 +1,82 @@
+#!/usr/bin/expect -f
+
+set disk_image [lindex $argv 0]
+set EXEC_TIMEOUT [lindex $argv 1]
+set EXPECT_TIMEOUT -1
+set host 10.20.3.27
+set USER $env(XUSER)
+set PASSWORD $env(XPASS)
+set WEBSERVER systems.cse.iitd.ernet.in
+
+# hack to validate EXEC_TIMEOUT
+set timeout $EXEC_TIMEOUT 
+set timeout $EXPECT_TIMEOUT
+#stty
+
+proc run { i c } {
+  puts "Begin Exec $c"
+  send -i $i "$c\r"
+  puts "Wait Exec $c"
+  expect -i $i ">hpiLO->"
+  puts "Done Exec $c"
+}
+
+proc login_system { t u h p } {
+   set timeout $t
+   spawn ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $u@$h
+   set tmp $spawn_id
+   expect -i $tmp "*password*"
+   send -i $tmp "$p\r"
+   expect -i $tmp "</>hpiLO->"
+   return $tmp
+}
+
+proc logout_system { i } {
+ send -i $i "exit\r"
+ set timeout 5
+ expect -i $i eof
+}
+
+proc terminate_system {m u h p} {
+  puts "FATAL: $m Error. Terminating"
+  set timeout -1
+  set X2 [login_system -1 $u $h $p ]
+  run $X2 "stop -f /system1"
+  
+  puts "on exit 0"
+  logout_system $X2
+  exit 1
+}
+
+proc xsignal { } {
+  global USER host PASSWORD
+  terminate_system "Signal" $USER $host $PASSWORD
+}
+
+proc switch_serialport {i t u h p} {
+   send -i $i "vsp\r"
+   set timeout $t
+   expect {
+     -i $i "*DONE*" { set timeout 5
+                      expect -i $i "*ALL DONE*"
+                   }
+     -i $i timeout  {
+                terminate_system "Timeout"  $u $h $p
+              }
+   }
+}
+
+trap xsignal {SIGINT SIGTERM SIGCONT}
+set X1 [login_system $EXPECT_TIMEOUT $USER $host $PASSWORD]
+run $X1 "stop -f /system1"
+#run "vm floppy insert http://dhcp96.cse.iitd.ernet.in/boot_image/boot.dsk"
+run $X1 "cd map1"
+run $X1 "cd oemhp_vm1"
+run $X1 "cd floppydr1"
+run $X1 "set oemhp_image=http://$WEBSERVER/~$USER/$disk_image"
+run $X1 "set oemhp_boot=connect"
+run $X1 "cd /"
+run $X1 "start /system1\r"
+switch_serialport $X1 $EXEC_TIMEOUT $USER $host $PASSWORD
+exit 0
+
