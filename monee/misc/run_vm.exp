@@ -14,11 +14,11 @@ set timeout $EXPECT_TIMEOUT
 #stty
 
 proc run { i c } {
-  puts "Begin Exec $c"
+  #puts "Begin Exec $c"
   send -i $i "$c\r"
-  puts "Wait Exec $c"
+  #puts "Wait Exec $c"
   expect -i $i ">hpiLO->"
-  puts "Done Exec $c"
+  #puts "Done Exec $c"
 }
 
 proc login_system { t u h p } {
@@ -38,7 +38,7 @@ proc logout_system { i } {
 }
 
 proc terminate_system {m u h p} {
-  puts "FATAL: $m Error. Terminating"
+  puts "$m: Terminating"
   set timeout -1
   set X2 [login_system -1 $u $h $p ]
   run $X2 "stop -f /system1"
@@ -50,7 +50,7 @@ proc terminate_system {m u h p} {
 
 proc xsignal { } {
   global USER host PASSWORD
-  terminate_system "Signal" $USER $host $PASSWORD
+  terminate_system "FATAL: Signal" $USER $host $PASSWORD
 }
 
 proc switch_serialport {i t u h p} {
@@ -61,7 +61,7 @@ proc switch_serialport {i t u h p} {
                       expect -i $i "*ALL DONE*"
                    }
      -i $i timeout  {
-                terminate_system "Timeout"  $u $h $p
+                terminate_system "FATAL: Timeout"  $u $h $p
               }
    }
 }
@@ -76,7 +76,10 @@ run $X1 "cd floppydr1"
 run $X1 "set oemhp_image=http://$WEBSERVER/~$USER/$disk_image"
 run $X1 "set oemhp_boot=connect"
 run $X1 "cd /"
-run $X1 "start /system1\r"
+run $X1 "start /system1"
 switch_serialport $X1 $EXEC_TIMEOUT $USER $host $PASSWORD
+terminate_system "SUCCESS"  $USER $host $PASSWORD
+
+
 exit 0
 

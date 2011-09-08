@@ -4,20 +4,26 @@ set timeout -1
 stty
 set disk_image [lindex $argv 0]
 set disk_name  [lindex $argv 1]
+set log_name   [lindex $argv 2]
 #set host 10.20.3.27
 set USER $env(USER)
 set PASSWORD $env(PASSWORD)
 set WEBSERVER systems.cse.iitd.ernet.in
 
-spawn scp $disk_image $USER@$WEBSERVER:./$disk_name
-expect "*password*"
-send "$PASSWORD\r"
-sleep 1
-expect "$USER@*"
-
-spawn ssh $USER@$WEBSERVER qsub -b y ./$disk_name
+spawn scp    -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  $disk_image $USER@$WEBSERVER:./$disk_name
 expect "*password*"
 send "$PASSWORD\r"
 expect eof
+
+spawn ssh -t -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  $USER@$WEBSERVER /usr/bin/qsub -b y -sync y -j y -o ./$disk_name.log  ./$disk_name
+expect "*password*"
+send "$PASSWORD\r"
+expect eof
+
+spawn scp     -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  $USER@$WEBSERVER:./$disk_name.log $log_name
+expect "*password*"
+send "$PASSWORD\r"
+expect eof
+
 
 exit 0

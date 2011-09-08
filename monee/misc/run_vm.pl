@@ -47,7 +47,7 @@ sub run_tapas_q
   my $os_dsk = shift;
   my $serial_output = shift;
   my $extra_opts = shift;
-  system("$SRCDIR/misc/run_tapas_q.exp $os_dsk $extra_opts | tee $serial_output");
+  system("$SRCDIR/misc/run_tapas_q.exp $os_dsk $extra_opts $serial_output");
 }
 
 
