@@ -6,8 +6,10 @@ set disk_image [lindex $argv 0]
 set disk_name  [lindex $argv 1]
 set log_name   [lindex $argv 2]
 #set host 10.20.3.27
-set USER $env(USER)
-set PASSWORD $env(PASSWORD)
+#set USER $env(USER)
+#set PASSWORD $env(PASSWORD)
+set USER deepakravi
+set PASSWORD deepakravi
 set WEBSERVER systems.cse.iitd.ernet.in
 
 spawn scp    -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  $disk_image $USER@$WEBSERVER:./$disk_name
