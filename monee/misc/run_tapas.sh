@@ -6,17 +6,19 @@ set disk_image [lindex $argv 0]
 set host 10.20.3.27
 set USER $env(USER)
 set PASSWORD $env(PASSWORD)
-set WEBSERVER systems.cse.iitd.ernet.in
+set WEBSERVER $env(WEBSERVER)
+set TAPASUSER guest
+set TAPASPASSWORD guestguest
 
-spawn scp $disk_image $USER@$WEBSERVER:public_html/boot.dsk
+spawn scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  $disk_image $USER@$WEBSERVER:public_html/boot.dsk
 expect "*password*"
 send "$PASSWORD\r"
 sleep 1
 expect "$USER@*"
 
-spawn ssh $USER@$host
+spawn ssh  -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  $TAPASUSER@$host
 expect "*password*"
-send "$PASSWORD\r"
+send "$TAPASPASSWORD\r"
 
 expect "</>hpiLO->"
 send "stop -f /system1\r"
@@ -52,9 +54,9 @@ set timeout 5
 expect "*ALL DONE*"
 set timeout -1
 
-spawn ssh $USER@$host
+spawn ssh  -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  $TAPASUSER@$host
 expect "*password*"
-send "$PASSWORD\r"
+send "$TAPASPASSWORD\r"
 expect "</>hpiLO->"
 send "stop -f /system1\r"
 
