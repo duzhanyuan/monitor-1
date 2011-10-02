@@ -1,17 +1,18 @@
 #!/usr/bin/expect -f
 
-set disk_image [lindex $argv 0]
+set URL [lindex $argv 0]
 set EXEC_TIMEOUT [lindex $argv 1]
 set EXPECT_TIMEOUT -1
 set host 10.20.3.27
 set USER $env(XUSER)
 set PASSWORD $env(XPASS)
-set WEBSERVER systems.cse.iitd.ernet.in
+
+puts "PASSWORD=$PASSWORD USER=$USER URL=$URL EXEC_TIMEOUT=$EXEC_TIMEOUT\n\n"
 
 # hack to validate EXEC_TIMEOUT
 set timeout $EXEC_TIMEOUT 
 set timeout $EXPECT_TIMEOUT
-#stty
+#stty 
 
 proc run { i c } {
   #puts "Begin Exec $c"
@@ -23,7 +24,7 @@ proc run { i c } {
 
 proc login_system { t u h p } {
    set timeout $t
-   spawn ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $u@$h
+   spawn /usr/bin/env -i LANG=C TERM=vt100 /usr/bin/ssh -t -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $u@$h
    set tmp $spawn_id
    expect -i $tmp "*password*"
    send -i $tmp "$p\r"
@@ -76,7 +77,7 @@ run $X1 "stop -f /system1/oemhp_vsp1"
 run $X1 "cd map1"
 run $X1 "cd oemhp_vm1"
 run $X1 "cd floppydr1"
-run $X1 "set oemhp_image=http://$WEBSERVER/~$USER/$disk_image"
+run $X1 "set oemhp_image=$URL"
 run $X1 "set oemhp_boot=connect"
 run $X1 "cd /"
 run $X1 "start /system1"
