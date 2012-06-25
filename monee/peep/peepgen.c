@@ -2582,9 +2582,11 @@ output_edge_offsets(FILE *outfile, EXE_SYM *entry, size_t entry_size,
 static int
 get_num_variants(EXE_SYM **entries, char const *name)
 {
+  char const *sym_variant;
   int num_variants;
   for (num_variants = 1;
-      strstart(get_sym_name(entries[num_variants]), name, NULL);
+      strstart(get_sym_name(entries[num_variants]), name, &sym_variant)
+      && *sym_variant == '_';
       num_variants++) {
   }
   return num_variants;
@@ -3017,6 +3019,7 @@ output_nomatch_pairs_for_entry(FILE *fp, EXE_SYM **entries, int i,
   regset_t use;
   int n_insns;
   int num_nomatch_pairs = 0;
+  char const *sym_variant;
   int num_variants;
   uint8_t *code;
 
@@ -3031,7 +3034,8 @@ output_nomatch_pairs_for_entry(FILE *fp, EXE_SYM **entries, int i,
   n_insns = disas_insns(insns, sizeof insns/sizeof insns[0], code, size, 4);
 
   for (num_variants = 1;
-      strstart(get_sym_name(entries[i + num_variants]), name, NULL);) {
+      strstart(get_sym_name(entries[i + num_variants]), name, &sym_variant)
+      && *sym_variant == '_';) {
     num_variants += identify_reg_variables_in_outcode(name, insns, n_insns,
         &entries[i + num_variants]);
   }

@@ -6966,7 +6966,7 @@ disas_insn(unsigned char const *code, target_ulong eip, insn_t *insn,
 	guest_flag = guest;
   insn_init(insn);
 
-  start_codep = code - eip;
+  start_codep = (target_ulong)(code - eip);
   codep = code;
   obufp = obuf;
   ckprefix();
